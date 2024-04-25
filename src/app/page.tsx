@@ -1,10 +1,7 @@
-import Image from "next/image";
-import NavigationBar from "@/app/navigation-bar";
+import React from "react";
 
 export default function Home() {
-  return (
-    <>
-      <NavigationBar></NavigationBar>
-    </>
-  );
+    return (
+        <div>Home Page!!!</div>
+    );
 }
