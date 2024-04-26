@@ -25,7 +25,9 @@ export default function RootLayout({
                 marginTop: `${NAVIGATION_BAR_HEIGHT}`,
                 height: `calc(100% - ${NAVIGATION_BAR_HEIGHT})`,
                 width: '100%',
-                position: 'absolute'
+                position: 'absolute',
+                paddingLeft: '15%',
+                paddingRight: '15%',
             }}>
                 {children}
             </div>

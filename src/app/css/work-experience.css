@@ -1,5 +1,5 @@
 .work-experience {
-    margin: 1em 3em;
+    margin: 1em 0 2em;
 }
 
 .resumes {
@@ -11,10 +11,6 @@
     flex-direction: column;
     width: 100%;
     gap: 1em;
-}
-
-.work-experience-companies:last-of-type {
-    margin-bottom: 3em;
 }
 
 .company-header {
