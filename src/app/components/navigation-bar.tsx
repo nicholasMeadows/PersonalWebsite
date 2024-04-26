@@ -5,11 +5,12 @@ import "../css/navigation-bar.css";
 import Link from "next/link";
 
 import {ABOUT_ME_ROUTE, HOME_ROUTE, WORK_EXPERIENCE_ROUTE} from '../constants/routes';
+import {NAVIGATION_BAR_HEIGHT} from "@/app/constants/navigation-bar";
 
 export default function NavigationBar() {
     const pathname = usePathname()
 
-    return <div className={'navigation-header-bar'}>
+    return <div className={'navigation-header-bar'} style={{height:`${NAVIGATION_BAR_HEIGHT}`, maxHeight:`${NAVIGATION_BAR_HEIGHT}`}}>
         <Link href={HOME_ROUTE} className={'my-name-wrapper'}>
             <span className={'my-name-header'}>Nicholas Meadows</span>
         </Link>

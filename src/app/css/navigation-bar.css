@@ -1,10 +1,12 @@
 .navigation-header-bar {
     background: white;
-    height: 5em;
-    max-height: 5em;
     display: flex;
     flex-direction: row;
-    position: relative;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    padding-left: 2em;
+    padding-right: 5em;
 }
 
 .my-name-wrapper {
@@ -12,7 +14,6 @@
     height: 100%;
     justify-content: flex-start;
     align-items: center;
-    margin-left: 1.5em;
 }
 
 .my-name-header {
@@ -50,7 +51,6 @@
     align-content: center;
     gap: 1em;
     margin-left: 1em;
-    margin-right: 1em;
 }
 
 .nav-link {

@@ -1,0 +1,29 @@
+.home-page {
+    position: relative;
+    top: 45%;
+    transform: translate(0, -50%);
+    display: flex;
+    flex-direction: row;
+    gap: 1em;
+    padding-left: 3em;
+    padding-right: 3em;
+}
+
+.home-page-text {
+    flex-grow: 1;
+    align-content: center;
+    font-size: 1.3em;
+}
+
+.home-page-text > .indent {
+    text-indent: 1em;
+}
+
+.home-page-img {
+    width: auto;
+    height: auto;
+    max-width: 25%;
+    object-fit: contain;
+    margin-left: auto;
+    border-radius: 1em;
+}
