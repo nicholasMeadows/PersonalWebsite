@@ -2,44 +2,31 @@
 
 import {usePathname} from "next/navigation";
 import "../css/navigation-bar.css";
-import {ABOUT_ME_ROUTE, HOME_ROUTE, WORK_EXPERIENCE_ROUTE} from '../constants/routes'
 import Link from "next/link";
+
+import {ABOUT_ME_ROUTE, HOME_ROUTE, WORK_EXPERIENCE_ROUTE} from '../constants/routes';
 
 export default function NavigationBar() {
     const pathname = usePathname()
+
     return <div className={'navigation-header-bar'}>
-        <div className={'navigation-item-section'}>
-            <div className={'vl'}></div>
-            <Link href={HOME_ROUTE}>
-                <div className={`navigation-item ${pathname === HOME_ROUTE ? 'navigation-item-active' : ''}`}>
-                    <strong style={{fontSize: '1.5em',}}>Home</strong>
-                </div>
-            </Link>
-
-            <div className={'vl'}></div>
-            <Link href={WORK_EXPERIENCE_ROUTE}>
-                <div
-                    className={`navigation-item ${pathname === WORK_EXPERIENCE_ROUTE ? 'navigation-item-active' : ''}`}>
-                    <strong style={{fontSize: '1.5em',}}>Work Experience</strong>
-                </div>
-            </Link>
-            <div className={'vl'}></div>
-            <Link href={ABOUT_ME_ROUTE}>
-                <div className={`navigation-item ${pathname === ABOUT_ME_ROUTE ? 'navigation-item-active' : ''}`}>
-                    <strong style={{fontSize: '1.5em',}}>About Me</strong>
-                </div>
-            </Link>
-            <div className={'vl'}></div>
+        <Link href={HOME_ROUTE} className={'my-name-wrapper'}>
+            <span className={'my-name-header'}>Nicholas Meadows</span>
+        </Link>
+        <div className={'external-sites-img-wrapper'}>
+            <a href={'https://github.com/nicholasMeadows'} target={'_blank'} className={'external-site-a'}>
+                <img src={"/github-logo.png"} alt={'github'} className={'external-site-img github-img'}/>
+            </a>
+            <a href={'https://www.linkedin.com/in/nicholasmeadows/'} target={'_blank'} className={'external-site-a'}>
+                <img src={"/linkedin-logo.png"} alt={'linkedin'} className={'external-site-img'}/>
+            </a>
         </div>
-
-        <div className={'external-site-images'}>
-            <img src={'/github-logo.png'} className={'external-site-image'} alt={''} onClick={() => {
-                window.open('https://github.com/nicholasMeadows')
-            }}/>
-            <img src={'/linkedin-logo.png'} width={'0'} height={'0'} className={'external-site-image'} alt={''}
-                 onClick={() => {
-                     window.open('https://www.linkedin.com/in/nicholasmeadows/')
-                 }}/>
+        <div className={'nav-buttons-wrapper'}>
+            <Link href={ABOUT_ME_ROUTE} className={`nav-link ${pathname === ABOUT_ME_ROUTE ? 'nav-link-active' : ''}`}>
+                <p>About</p></Link>
+            <Link href={WORK_EXPERIENCE_ROUTE}
+                  className={`nav-link ${pathname === WORK_EXPERIENCE_ROUTE ? 'nav-link-active' : ''}`}><p>Work
+                Experience</p></Link>
         </div>
     </div>
 }
