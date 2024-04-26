@@ -1,0 +1,48 @@
+.work-experience {
+    margin: 1em 3em;
+}
+
+.resumes {
+    margin-bottom: 2em;
+}
+
+.work-experience-companies {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 1em;
+}
+
+.work-experience-companies:last-of-type {
+    margin-bottom: 3em;
+}
+
+.company-header {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 0.5em;
+}
+
+.company-tenure-box {
+    margin-left: auto;
+}
+
+.company-experience-box {
+    display: flex;
+    flex-direction: column;
+    padding-left: 1em;
+    gap: 1em;
+
+    ul {
+        margin-left: 2em;
+    }
+}
+
+.client-experience-box {
+    display: flex;
+    flex-direction: column;
+}
+
+.company-description {
+    font-weight: bold;
+}

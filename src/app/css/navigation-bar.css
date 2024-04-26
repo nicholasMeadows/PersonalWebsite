@@ -7,6 +7,9 @@
     top: 0;
     padding-left: 2em;
     padding-right: 5em;
+    z-index: 1000000;
+    /*box-shadow: 0 0.2em 5 gray;*/
+    box-shadow: 0 0.2em 1em 0 #ccc;
 }
 
 .my-name-wrapper {
