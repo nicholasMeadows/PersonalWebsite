@@ -1,0 +1,18 @@
+.about-me {
+    width: 100%;
+    /*padding-top: 1em;*/
+    margin-top: 1em;
+    margin-bottom: 3em;
+}
+
+.about-me > p {
+    text-indent: 2em;
+}
+
+.about-me-header-img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 70%;
+    border-radius: 1em;
+}
