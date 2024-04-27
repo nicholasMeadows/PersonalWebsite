@@ -13,15 +13,13 @@ export default function NavigationBar() {
 
     const [sideBarOpen, setSideBarOpen] = useState(false);
     const sideBarDivRef = useRef<HTMLDivElement | null>(null);
-    const [sidebarWidth, setSideBarWidth] = useState('0px')
+    const [sidebarWidth, setSideBarWidth] = useState(`100%`)
 
     useEffect(() => {
         const sideBarDiv = sideBarDivRef.current;
-        if (sideBarDiv === null) {
-            setSideBarWidth('0px');
-            return;
+        if (sideBarDiv !== null) {
+            setSideBarWidth(`${sideBarDiv.clientWidth}px`)
         }
-        setSideBarWidth(`${sideBarDiv.clientWidth}px`)
     }, [sideBarDivRef]);
 
 
@@ -36,7 +34,7 @@ export default function NavigationBar() {
             </div>
         </div>
 
-        <Link href={HOME_ROUTE} className={'my-name-wrapper'}>
+        <Link href={HOME_ROUTE} className={'my-name-wrapper'} onClick={() => setSideBarOpen(false)}>
             <span className={'my-name-header'}>Nicholas Meadows</span>
         </Link>
 
