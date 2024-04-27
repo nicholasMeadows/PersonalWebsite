@@ -170,6 +170,6 @@
     }
 
     .side-bar {
-        display: none;
+        visibility: hidden;
     }
 }
