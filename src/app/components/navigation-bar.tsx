@@ -7,10 +7,12 @@ import Link from "next/link";
 import {ABOUT_ME_ROUTE, HOME_ROUTE, WORK_EXPERIENCE_ROUTE} from '../constants/routes';
 import {NAVIGATION_BAR_HEIGHT} from "@/app/constants/navigation-bar";
 import {useEffect, useRef, useState} from "react";
+import ToggleSwitch from "@/app/components/toggle-switch";
+import {useDarkMode} from "@/app/hooks/useDarkMode";
 
 export default function NavigationBar() {
     const pathname = usePathname()
-
+    const darkMode = useDarkMode();
     const [sideBarOpen, setSideBarOpen] = useState(false);
     const sideBarDivRef = useRef<HTMLDivElement | null>(null);
     const [sidebarWidth, setSideBarWidth] = useState(`100%`)
@@ -40,7 +42,8 @@ export default function NavigationBar() {
 
         <div className={'external-sites-img-wrapper'}>
             <a href={'https://github.com/nicholasMeadows'} target={'_blank'} className={'external-site-a'}>
-                <img src={"/github-logo.png"} alt={'github'} className={'external-site-img github-img'}/>
+                <img src={`/github-logo-${darkMode.darkModeOn ? 'light' : 'dark'}.png`} alt={'github'}
+                     className={'external-site-img github-img'}/>
             </a>
             <a href={'https://www.linkedin.com/in/nicholasmeadows/'} target={'_blank'}
                className={'external-site-a'}>
@@ -54,6 +57,9 @@ export default function NavigationBar() {
             <Link href={WORK_EXPERIENCE_ROUTE}
                   className={`nav-link ${pathname === WORK_EXPERIENCE_ROUTE ? 'nav-link-active' : ''}`}><p>Work
                 Experience</p></Link>
+        </div>
+        <div className={'dark-mode-toggle-box'}>
+            <ToggleSwitch checked={darkMode.darkModeOn} onToggle={() => darkMode.toggleDarkMode()}/>
         </div>
         <div ref={sideBarDivRef} className={'side-bar'}
              style={{
@@ -70,14 +76,12 @@ export default function NavigationBar() {
                     <p>About</p></Link>
                 <div className={'side-bar-external-site-img-box'}>
                     <a href={'https://github.com/nicholasMeadows'} target={'_blank'}>
-                        <img src={'/github-logo-wide.png'} alt={''}
+                        <img src={`/github-logo-wide-${darkMode.darkModeOn ? 'light' : 'dark'}.png`} alt={''}
                              className={'side-bar-external-site-img'}/> </a>
                     <a href={'https://www.linkedin.com/in/nicholasmeadows/'} target={'_blank'}>
-                        <img src={'/linkedin-logo-wide.png'} alt={''}
+                        <img src={`/linkedin-logo-wide-${darkMode.darkModeOn ? 'light' : 'dark'}.png`} alt={''}
                              className={'side-bar-external-site-img'}/>
                     </a>
-
-
                 </div>
             </div>
         </div>

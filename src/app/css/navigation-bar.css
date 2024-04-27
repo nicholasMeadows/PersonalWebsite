@@ -1,15 +1,15 @@
 .navigation-header-bar {
-    background: white;
+    background: rgb(var(--background-color));
     display: flex;
     flex-direction: row;
     position: fixed;
     width: 100%;
     top: 0;
     padding-left: 2em;
-    padding-right: 5em;
+    padding-right: 2em;
     z-index: 1000000;
     /*box-shadow: 0 0.2em 5 gray;*/
-    box-shadow: 0 0.2em 1em 0 #ccc;
+    box-shadow: 0 0.2em 1em 0 var(--navigation-bar-box-shadow);
 }
 
 
@@ -27,7 +27,7 @@
 }
 
 .my-name-header {
-    color: black;
+    color: rgb(var(--text-color));
     font-size: 1.5em;
     padding: 0;
     margin: 0;
@@ -64,7 +64,7 @@
 }
 
 .nav-link {
-    color: black;
+    color: rgb(var(--text-color));
     align-self: center;
     font-size: 1.2em;
     font-weight: bold;
@@ -95,14 +95,14 @@
 .navigation-header-bar-hamburger > div {
     width: 100%;
     height: 0.3em;
-    background-color: black;
+    background-color: rgb(var(--navigation-hamburger-color));
     border-radius: 1em;
 }
 
 .side-bar {
     position: absolute;
     transition: left ease-out 500ms;
-    background-color: white;
+    background-color: rgb(var(--background-color));
     z-index: 2;
     max-width: 50%;
 }
@@ -111,7 +111,7 @@
     width: 100vw;
     position: absolute;
     left: 0;
-    background-color: rgba(140, 140, 140, 0.24);
+    background-color: rgba(var(--side-bar-active-background));
     z-index: 1;
 }
 
@@ -131,7 +131,7 @@
 }
 
 .side-bar-link > p {
-    color: black;
+    color: rgb(var(--text-color));
     text-align: center;
     font-size: 1.3em;
 }
@@ -150,6 +150,12 @@
     object-fit: contain;
 }
 
+.dark-mode-toggle-box {
+    display: flex;
+    align-items: center;
+    margin-left: 1em;
+}
+
 @media only screen and (max-width: 770px) {
     .external-sites-img-wrapper {
         display: none;
@@ -157,6 +163,10 @@
 
     .nav-buttons-wrapper {
         display: none;
+    }
+
+    .dark-mode-toggle-box {
+        margin-left: auto;
     }
 }
 

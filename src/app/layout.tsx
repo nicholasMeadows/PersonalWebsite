@@ -1,8 +1,9 @@
 import type {Metadata} from "next";
 import {Inter} from "next/font/google";
-import "./globals.css";
+import "./css/globals.css";
 import NavigationBar from "@/app/components/navigation-bar";
 import {NAVIGATION_BAR_HEIGHT} from "@/app/constants/navigation-bar";
+import ThemeProvider from "@/app/components/ThemeProvider";
 
 const inter = Inter({subsets: ["latin"]});
 
@@ -19,15 +20,17 @@ export default function RootLayout({
     return (
         <html lang="en">
         <body className={inter.className}>
-        <div style={{height: '100vh'}}>
-            <NavigationBar/>
-            <div style={{
-                marginTop: `${NAVIGATION_BAR_HEIGHT}`,
-                height: `calc(100% - ${NAVIGATION_BAR_HEIGHT})`,
-            }} className={'content-div'}>
-                {children}
+        <ThemeProvider>
+            <div style={{height: '100vh'}}>
+                <NavigationBar/>
+                <div style={{
+                    marginTop: `${NAVIGATION_BAR_HEIGHT}`,
+                    height: `calc(100% - ${NAVIGATION_BAR_HEIGHT})`,
+                }} className={'content-div'}>
+                    {children}
+                </div>
             </div>
-        </div>
+        </ThemeProvider>
         </body>
         </html>
     );
