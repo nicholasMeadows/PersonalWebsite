@@ -8,7 +8,7 @@ import {ABOUT_ME_ROUTE, HOME_ROUTE, WORK_EXPERIENCE_ROUTE} from '../constants/ro
 import {NAVIGATION_BAR_HEIGHT} from "@/app/constants/navigation-bar";
 import {useEffect, useRef, useState} from "react";
 import ToggleSwitch from "@/app/components/toggle-switch";
-import {useDarkMode} from "@/app/hooks/useDarkMode";
+import useDarkMode from "@/app/hooks/useDarkMode";
 
 export default function NavigationBar() {
     const pathname = usePathname()

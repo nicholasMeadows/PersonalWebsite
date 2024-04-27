@@ -10,7 +10,7 @@ function ThemeProvider({
     useEffect(() => {
         const bodyClassList = document.body.classList;
         const theme = localStorage.getItem('theme');
-        if (theme !== undefined) {
+        if (theme !== null) {
             if (theme === 'dark' && !bodyClassList.contains('dark')) {
                 bodyClassList.add('dark');
             } else if (theme === 'light' && bodyClassList.contains('dark')) {

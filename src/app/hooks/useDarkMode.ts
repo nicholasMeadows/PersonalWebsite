@@ -1,6 +1,6 @@
 import {useEffect, useState} from "react";
 
-export function useDarkMode() {
+export default function useDarkMode() {
     const isDarkMode = (): boolean => {
         const theme = localStorage.getItem('theme');
         if (theme !== undefined) {
@@ -12,7 +12,10 @@ export function useDarkMode() {
         }
         return false;
     }
-    const [darkMode, setDarkMode] = useState(isDarkMode())
+    const [darkMode, setDarkMode] = useState(false)
+    useEffect(() => {
+        setDarkMode(isDarkMode())
+    }, []);
 
     useEffect(() => {
         const onMutation = (mutations: MutationRecord[], mutationObserver: MutationObserver) => {
