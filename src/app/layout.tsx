@@ -24,11 +24,7 @@ export default function RootLayout({
             <div style={{
                 marginTop: `${NAVIGATION_BAR_HEIGHT}`,
                 height: `calc(100% - ${NAVIGATION_BAR_HEIGHT})`,
-                width: '100%',
-                position: 'absolute',
-                paddingLeft: '15%',
-                paddingRight: '15%',
-            }}>
+            }} className={'content-div'}>
                 {children}
             </div>
         </div>
