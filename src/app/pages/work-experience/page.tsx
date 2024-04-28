@@ -1,4 +1,4 @@
-import '../css/work-experience.css'
+import '../../css/work-experience.css'
 
 export default function WorkExperience() {
     return (<div className={'work-experience'}>

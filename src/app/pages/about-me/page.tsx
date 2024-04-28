@@ -1,6 +1,6 @@
 import React from 'react';
 
-import '../css/about-me.css'
+import '../../css/about-me.css'
 import {BIRTHDAY} from "@/app/constants/about-me";
 
 function AboutMe() {
