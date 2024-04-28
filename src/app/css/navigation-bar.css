@@ -104,7 +104,7 @@
     transition: left ease-out 500ms;
     background-color: rgb(var(--background-color));
     z-index: 2;
-    max-width: 50%;
+    max-width: 75%;
 }
 
 .side-bar-active-background {
