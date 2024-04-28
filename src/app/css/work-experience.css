@@ -88,4 +88,8 @@
     .company-experience-box {
         padding-left: 0;
     }
+
+    .other-experience-img-box {
+        flex-direction: column;
+    }
 }
