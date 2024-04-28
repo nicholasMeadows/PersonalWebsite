@@ -250,8 +250,10 @@ export default function WorkExperience() {
             <div className={'other-experience-box'}>
                 <h3>First Robotics Team 4353</h3>
                 <br/>
-                <img className={'other-experience-img other-experience-centered-img-box-50-percent-width'}
-                     src={'/FRC Team 4353 2016 Robot.png'} alt={''}/>
+                <div className={'other-experience-img-box'}>
+                    <img className={'other-experience-img'}
+                         src={'/FRC Team 4353 2016 Robot.png'} alt={''}/>
+                </div>
                 <br/>
                 <p>As a member of FRC Team 4353, also known as Krewe de Reauxbotics, my four-year journey through high
                     school was transformed into an unforgettable experience filled with challenges, triumphs, and

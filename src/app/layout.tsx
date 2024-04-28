@@ -25,7 +25,7 @@ export default function RootLayout({
                 <NavigationBar/>
                 <div style={{
                     marginTop: `${NAVIGATION_BAR_HEIGHT}`,
-                    height: `calc(100% - ${NAVIGATION_BAR_HEIGHT})`,
+                    minHeight: `calc(100% - ${NAVIGATION_BAR_HEIGHT})`,
                 }} className={'content-div'}>
                     {children}
                 </div>

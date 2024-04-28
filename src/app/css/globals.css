@@ -48,9 +48,9 @@ a {
 
 .content-div {
     width: 100%;
+    max-width: 100%;
     position: absolute;
-    padding-left: 10%;
-    padding-right: 10%;
+    padding: 1em 10%;
 }
 
 @media only screen and (max-width: 770px) {

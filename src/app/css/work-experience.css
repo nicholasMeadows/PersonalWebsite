@@ -1,7 +1,4 @@
 .work-experience {
-    /*margin: 1em 0 2em;*/
-    padding-top: 1em;
-    padding-bottom: 2em;
 }
 
 .resumes {
@@ -57,22 +54,16 @@
     display: flex;
     flex-direction: row;
     gap: 2em;
+    flex-grow: 0;
+    justify-content: center;
 }
 
 .other-experience-img {
+    max-width: 50%;
     width: 100%;
-    max-width: 100%;
     height: auto;
     object-fit: contain;
 }
-
-.other-experience-centered-img-box-50-percent-width {
-    display: block;
-    width: 50%;
-    margin-left: auto;
-    margin-right: auto;
-}
-
 
 @media only screen and (max-width: 770px) {
     .company-header {
@@ -89,9 +80,5 @@
 
     .company-experience-box {
         padding-left: 0;
-    }
-
-    .other-experience-img-box {
-        flex-direction: column;
     }
 }
