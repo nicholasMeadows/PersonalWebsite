@@ -59,7 +59,8 @@ export default function NavigationBar() {
                 Experience</p></Link>
         </div>
         <div className={'dark-mode-toggle-box'}>
-            <ToggleSwitch checked={darkMode.darkModeOn} onToggle={() => darkMode.toggleDarkMode()}/>
+            <ToggleSwitch checked={darkMode.darkModeOn} onToggle={() => darkMode.toggleDarkMode()}
+                          uncheckedImgUrl={'/sun-icon.png'} checkImgUrl={'/moon-icon.png'}/>
         </div>
         <div ref={sideBarDivRef} className={'side-bar'}
              style={{
