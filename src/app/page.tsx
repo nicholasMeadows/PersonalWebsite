@@ -19,7 +19,7 @@ export default function Home() {
                 <p className={'indent'}>In my professional journey, I&apos;ve had the opportunity to work on
                     diverse
                     projects, from developing dynamic
-                    websites for credit card processing companies to crafting REST services for satellite imagery
+                    websites for credit card processing companies to crafting REST services for a satellite imagery
                     provider.
                     My
                     focus on quality assurance ensures that every project I undertake is delivered to the highest
