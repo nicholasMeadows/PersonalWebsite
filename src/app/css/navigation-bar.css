@@ -1,5 +1,5 @@
 .navigation-header-bar {
-    background: rgb(var(--background-color));
+    background: rgb(var(--nav-bar-background-color));
     display: flex;
     flex-direction: row;
     position: fixed;
