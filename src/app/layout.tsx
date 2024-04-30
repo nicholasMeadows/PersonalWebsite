@@ -4,6 +4,7 @@ import "./css/globals.css";
 import NavigationBar from "@/app/components/navigation-bar";
 import {NAVIGATION_BAR_HEIGHT} from "@/app/constants/navigation-bar";
 import ThemeProvider from "@/app/components/ThemeProvider";
+import Script from "next/script";
 
 const inter = Inter({subsets: ["latin"]});
 
@@ -20,6 +21,20 @@ export default function RootLayout({
     return (
         <html lang="en">
         <body className={inter.className}>
+
+
+        <Script async src="https://www.googletagmanager.com/gtag/js?id=G-YTLWWK4PC9"></Script>
+        <Script id={'google-analytics'}>
+            {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'G-YTLWWK4PC9');
+            `}
+        </Script>
+
+
         <ThemeProvider>
             <div style={{height: '100vh'}}>
                 <NavigationBar/>
