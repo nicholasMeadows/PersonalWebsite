@@ -4,7 +4,7 @@ import {usePathname} from "next/navigation";
 import "../css/navigation-bar.css";
 import Link from "next/link";
 
-import {ABOUT_ME_ROUTE, HOME_ROUTE, WORK_EXPERIENCE_ROUTE} from '../constants/routes';
+import {ABOUT_ME_ROUTE, HOME_ROUTE, PROJECTS_ROUTE, WORK_EXPERIENCE_ROUTE} from '../constants/routes';
 import {NAVIGATION_BAR_HEIGHT} from "@/app/constants/navigation-bar";
 import ToggleSwitch from "@/app/components/toggle-switch";
 import useDarkMode from "@/app/hooks/useDarkMode";
@@ -82,6 +82,9 @@ export default function NavigationBar() {
                 <Link href={WORK_EXPERIENCE_ROUTE}
                       className={`nav-link ${pathname === WORK_EXPERIENCE_ROUTE ? 'nav-link-active' : ''}`}><p>Work
                     Experience</p></Link>
+                <Link href={PROJECTS_ROUTE}
+                      className={`nav-link ${pathname === PROJECTS_ROUTE ? 'nav-link-active' : ''}`}><p>Projects</p>
+                </Link>
             </div>
             <div className={'dark-mode-toggle-box'}>
                 <ToggleSwitch checked={darkMode.darkModeOn} onToggle={() => darkMode.toggleDarkMode()}

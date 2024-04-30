@@ -5,6 +5,7 @@
 body {
     --background-color: 255, 255, 255;
     --nav-bar-background-color: 255, 255, 255;
+    --projects-table-of-contents-background-color: 255, 255, 255;
     --text-color: 0, 0, 0;
     --navigation-bar-box-shadow: #ccc;
     --navigation-hamburger-color: 0, 0, 0;
@@ -14,6 +15,7 @@ body {
 body.dark {
     --background-color: 31, 31, 31;
     --nav-bar-background-color: 50, 50, 50;
+    --projects-table-of-contents-background-color: 50, 50, 50;
     --text-color: 255, 255, 255;
     --navigation-bar-box-shadow: #4b4b4b;
     --navigation-hamburger-color: 255, 255, 255;

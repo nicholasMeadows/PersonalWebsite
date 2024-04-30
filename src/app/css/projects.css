@@ -1,0 +1,75 @@
+.projects-page {
+    width: 100%;
+}
+
+.table-of-contents {
+    background-color: rgb(var(--projects-table-of-contents-background-color));
+    border-radius: 1em;
+    padding: 1.3em;
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+    float: left;
+    margin-right: 1em;
+    margin-bottom: 1em;
+    box-shadow: 0 0 0.6em 0.1em #000;
+}
+
+.table-of-contents-link-box {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3em;
+    margin-left: 1em;
+    margin-top: 0.5em;
+}
+
+.project-div {
+    display: flex;
+    flex-direction: column;
+}
+
+.project-section-header {
+    margin-top: 1em;
+    margin-bottom: 0.2em;
+}
+
+.project-section-header:first-of-type {
+    margin-top: 0;
+}
+
+p {
+    text-indent: 1.5em;
+}
+
+p, li {
+    text-indent: 1.5em;
+    font-size: 1.2em;
+}
+
+.project-imgs-flex-box-no-wrap {
+    display: flex;
+    max-width: 100%;
+    gap: 1em;
+}
+
+.project-img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+}
+
+.home-automation-components-subsection {
+    clear: left;
+}
+
+.home-automation-component-ul {
+    margin-left: 2em;
+}
+
+@media only screen and (max-width: 770px) {
+    .table-of-contents {
+        float: unset;
+        width: 100%;
+
+    }
+}
