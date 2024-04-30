@@ -72,15 +72,10 @@ function Projects() {
             I embarked on a mission to restore this family heirloom to its former glory.</p>
         <br/>
         <div className={'project-imgs-flex-box-no-wrap'}>
-            <div>
-                <img className={'project-img'}
-                     src={'/boat-pictures/boat-before-sanding-and-painting.png'} alt={''}/>
-            </div>
-
-            <div>
-                <img className={'project-img'}
-                     src={'/boat-pictures/boat-before-sanded.png'} alt={''}/>
-            </div>
+            <img className={'project-img'}
+                 src={'/boat-pictures/boat-before-sanding-and-painting.png'} alt={''}/>
+            <img className={'project-img'}
+                 src={'/boat-pictures/boat-before-sanded.png'} alt={''}/>
         </div>
         <br/>
         <p>The restoration project started with a thorough cleaning, removing years of grime and neglect. Next came the
@@ -90,15 +85,10 @@ function Projects() {
         <br/>
         <br/>
         <div className={'project-imgs-flex-box-no-wrap'}>
-            <div>
-                <img className={'project-img'}
-                     src={'/boat-pictures/boat-painted-with-floor-1.png'} alt={''}/>
-            </div>
-
-            <div>
-                <img className={'project-img'}
-                     src={'/boat-pictures/boat-painted-with-floor-2.png'} alt={''}/>
-            </div>
+            <img className={'project-img'}
+                 src={'/boat-pictures/boat-painted-with-floor-1.png'} alt={''}/>
+            <img className={'project-img'}
+                 src={'/boat-pictures/boat-painted-with-floor-2.png'} alt={''}/>
         </div>
         <br/>
         <p>A stroke of luck came in the form of a 1983 Evinrude 70hp motor, purchased for a mere $300. Though not
@@ -108,10 +98,8 @@ function Projects() {
         <br/>
 
         <div className={'project-imgs-flex-box-no-wrap'}>
-            <div>
-                <img className={'project-img'}
-                     src={'/boat-pictures/evinrude-70hp-painted.png'} alt={''}/>
-            </div>
+            <img className={'project-img'}
+                 src={'/boat-pictures/evinrude-70hp-painted.png'} alt={''}/>
         </div>
         <br/>
         <p>But the restoration didn&apos;t stop there. To ensure the boat&apos;s longevity and reliability, a deep

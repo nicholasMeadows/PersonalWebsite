@@ -50,12 +50,14 @@ p, li {
     display: flex;
     max-width: 100%;
     gap: 1em;
+    justify-content: center;
 }
 
 .project-img {
-    width: 100%;
-    height: auto;
     object-fit: contain;
+    max-height: 70vh;
+    position: relative;
+    overflow: hidden;
 }
 
 .home-automation-components-subsection {
