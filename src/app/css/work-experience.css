@@ -46,10 +46,6 @@
     position: relative;
 }
 
-.other-experience-box > p {
-    text-indent: 1em;
-}
-
 .other-experience-img-box {
     display: flex;
     flex-direction: row;
