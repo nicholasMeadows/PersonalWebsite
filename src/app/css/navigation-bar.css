@@ -13,18 +13,12 @@
     box-shadow: 0 0.2em 1em 0 var(--navigation-bar-box-shadow);
 }
 
-
-@media only screen and (max-width: 770px) {
-    .navigation-header-bar {
-        padding-left: 1em;
-    }
-}
-
 .my-name-wrapper {
     display: flex;
     height: 100%;
     justify-content: flex-start;
     align-items: center;
+    margin-right: 1em;
 }
 
 .my-name-header {
@@ -170,7 +164,7 @@
     margin-left: 1em;
 }
 
-@media only screen and (max-width: 770px) {
+@media only screen and (max-width: 836px) {
     .external-sites-img-wrapper {
         display: none;
     }
@@ -181,6 +175,16 @@
 
     .dark-mode-toggle-box {
         margin-left: auto;
+    }
+
+    .navigation-header-bar {
+        padding-left: 1em;
+    }
+}
+
+@media only screen and (max-width: 380px) {
+    .my-name-header {
+        white-space: unset;
     }
 }
 
