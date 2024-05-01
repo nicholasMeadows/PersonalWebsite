@@ -2,7 +2,6 @@ import type {Metadata} from "next";
 import {Inter} from "next/font/google";
 import "./css/globals.css";
 import NavigationBar from "@/app/components/navigation-bar";
-import {NAVIGATION_BAR_HEIGHT} from "@/app/constants/navigation-bar";
 import ThemeProvider from "@/app/components/ThemeProvider";
 import GoogleAnalytics from "@/app/components/google-analytics";
 import React from "react";
@@ -29,10 +28,7 @@ export default function RootLayout({
         <ThemeProvider>
             <div style={{height: '100vh'}}>
                 <NavigationBar/>
-                <div style={{
-                    marginTop: `${NAVIGATION_BAR_HEIGHT}`,
-                    minHeight: `calc(100% - ${NAVIGATION_BAR_HEIGHT})`,
-                }} className={'content-div'}>
+                <div className={'content-div'}>
                     {children}
                 </div>
             </div>
