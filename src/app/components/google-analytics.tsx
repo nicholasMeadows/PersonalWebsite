@@ -11,7 +11,7 @@ function GoogleAnalytics() {
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
 
-            gtag('config', 'G-YTLWWK4PC9');
+            gtag('config', 'G-YTLWWK4PC9', { 'debug_mode':true });
             `}
         </Script>
     </>;
