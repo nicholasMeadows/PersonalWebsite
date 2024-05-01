@@ -5,7 +5,6 @@ import "../css/navigation-bar.css";
 import Link from "next/link";
 
 import {ABOUT_ME_ROUTE, HOME_ROUTE, PROJECTS_ROUTE, WORK_EXPERIENCE_ROUTE} from '../constants/routes';
-import {NAVIGATION_BAR_HEIGHT} from "@/app/constants/navigation-bar";
 import ToggleSwitch from "@/app/components/toggle-switch";
 import useDarkMode from "@/app/hooks/useDarkMode";
 import {useCallback, useEffect, useRef, useState} from "react";
@@ -45,8 +44,7 @@ export default function NavigationBar() {
     }, []);
 
     return <>
-        <div className={'navigation-header-bar'}
-             style={{height: `${NAVIGATION_BAR_HEIGHT}`, maxHeight: `${NAVIGATION_BAR_HEIGHT}`}}>
+        <div className={'navigation-header-bar'}>
 
             <div className={'navigation-header-bar-hamburger-wrapper'}>
                 <div className={'navigation-header-bar-hamburger'} onClick={() => setSideBarOpen(!sideBarOpen)}>
@@ -92,11 +90,7 @@ export default function NavigationBar() {
             </div>
         </div>
 
-        <div ref={sideBarDivRef} className={`side-bar ${sideBarOpen ? 'side-bar-open' : ''}`}
-             style={{
-                 height: `calc(100vh - ${NAVIGATION_BAR_HEIGHT})`,
-                 top: NAVIGATION_BAR_HEIGHT,
-             }}>
+        <div ref={sideBarDivRef} className={`side-bar ${sideBarOpen ? 'side-bar-open' : ''}`}>
             <div className={'side-bar-nav-links'} onClick={() => {
                 setSideBarOpen(false)
                 scrollToTopOfPage();
@@ -120,9 +114,7 @@ export default function NavigationBar() {
 
         </div>
         <div ref={sideBarActiveBackgroundDivRef} className={'side-bar-active-background'} style={{
-            visibility: sideBarOpen ? 'visible' : 'hidden',
-            top: NAVIGATION_BAR_HEIGHT,
-            height: `calc(100vh - ${NAVIGATION_BAR_HEIGHT})`,
+            visibility: sideBarOpen ? 'visible' : 'hidden'
         }} onClick={() => setSideBarOpen(false)}/>
     </>
 }

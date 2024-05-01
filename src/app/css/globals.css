@@ -10,6 +10,7 @@ body {
     --navigation-bar-box-shadow: #ccc;
     --navigation-hamburger-color: 0, 0, 0;
     --side-bar-active-background: 140, 140, 140, 0.24;
+    --navigation-bar-height: 5em;
 }
 
 body.dark {
@@ -51,6 +52,8 @@ a {
 }
 
 .content-div {
+    margin-top: var(--navigation-bar-height);
+    min-height: calc(100% - var(--navigation-bar-height));
     width: 100%;
     max-width: 100%;
     position: absolute;
