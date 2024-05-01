@@ -16,10 +16,6 @@
     border-radius: 1em;
 }
 
-.home-page-text > .indent {
-    text-indent: 2em;
-}
-
 @media only screen and (max-width: 860px) {
     .home-page-text {
         font-size: 1em;
