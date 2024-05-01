@@ -4,6 +4,9 @@ import "./css/globals.css";
 import NavigationBar from "@/app/components/navigation-bar";
 import {NAVIGATION_BAR_HEIGHT} from "@/app/constants/navigation-bar";
 import ThemeProvider from "@/app/components/ThemeProvider";
+import GoogleAnalytics from "@/app/components/google-analytics";
+import React from "react";
+import {GoogleTagManager} from "@next/third-parties/google"
 
 const inter = Inter({subsets: ["latin"]});
 
@@ -20,6 +23,9 @@ export default function RootLayout({
     return (
         <html lang="en">
         <body className={inter.className}>
+
+        <GoogleAnalytics/>
+
         <ThemeProvider>
             <div style={{height: '100vh'}}>
                 <NavigationBar/>
@@ -31,6 +37,7 @@ export default function RootLayout({
                 </div>
             </div>
         </ThemeProvider>
+        <GoogleTagManager gtmId={'GTM-TPZ7CXL2'}/>
         </body>
         </html>
     );
