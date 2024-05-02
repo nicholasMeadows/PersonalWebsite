@@ -33,7 +33,9 @@ export default function RootLayout({
                 </div>
             </div>
         </ThemeProvider>
-        <GoogleTagManager gtmId={'GTM-TPZ7CXL2'}/>
+        {process.env.GOOGLE_TAG_MANAGER_ID !== undefined &&
+            <GoogleTagManager gtmId={process.env.GOOGLE_TAG_MANAGER_ID}/>
+        }
         </body>
         </html>
     );
