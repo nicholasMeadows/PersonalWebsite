@@ -3,7 +3,7 @@ import '../../css/home-page.css'
 export default function Home() {
     return (
         <div className={'home-page'}>
-            <img src={'/nicholas-picture-1.jpg'} alt={''} className={'home-page-img'}/>
+            <img src={'/nicholas-picture-1.png'} alt={''} className={'home-page-img'}/>
 
             <div className={'home-page-text'}>
                 <p>Hello, I&apos;m Nick</p>
