@@ -7,8 +7,6 @@ export default function WorkExperience() {
             <h2>Resumes</h2>
             <a id={'full-stack-resume-a'} href={"/resume/Fullstack Engineer Resume.pdf"} download>Full Stack
                 Resume.pdf</a>
-            <br/>
-            <a id={'front-end-resume-a'} href={"/resume/Frontend Engineer Resume.pdf"} download>Frontend Resume.pdf</a>
         </div>
 
         <div className={'work-experience-companies'}>
