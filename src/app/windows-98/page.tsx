@@ -9,6 +9,7 @@ import AboutMe from "@/app/personal-website/about-me/page";
 import Projects from "@/app/personal-website/projects/page";
 import Home from "@/app/personal-website/home-page/page";
 import Windows98Startup from "@/app/components/windows-98-startup"
+import NanoRacksAndRobotics from "@/app/personal-website/nanoracks-and-robotics/page"
 
 import '../css/home-page.css'
 import '../css/projects.css'
@@ -35,6 +36,8 @@ const MY_PROJECTS_APPLICATION_NAME = "My Projects"
 const MY_PROJECTS_APPLICATION_ICON_URL = "3d-print-ghost-shell/ghost-shell-first-assembly.png"
 const WORK_EXPERIENCE_APPLICATION_NAME = "Work Experience";
 const WORK_EXPERIENCE_APPLICATION_ICON_URL = "windows-icons/document-0.png";
+const NANO_RACKS_AND_ROBOTICS_APPLICATION_NAME = "Nano Racks and Robotics"
+const NANO_RACKS_AND_ROBOTICS_APPLICATION_ICON_URL = "FRC Team 4353 2016 Robot.png"
 
 export default function Windows98() {
     const mouseClickSoundEffectAudioRef = useRef<HTMLAudioElement>(null)
@@ -199,6 +202,11 @@ export default function Windows98() {
         setIsFocused(WORK_EXPERIENCE_APPLICATION_NAME, true);
     }, [openWindow, setIsFocused]);
 
+    const openNanoRacksAndRoboticsPage = useCallback(() => {
+        openWindow(NANO_RACKS_AND_ROBOTICS_APPLICATION_NAME, NANO_RACKS_AND_ROBOTICS_APPLICATION_ICON_URL)
+        setIsFocused(NANO_RACKS_AND_ROBOTICS_APPLICATION_NAME, true);
+    }, [openWindow, setIsFocused]);
+
     useEffect(() => {
         openIntroPage();
     }, []);
@@ -270,6 +278,8 @@ export default function Windows98() {
                     </a>
                     <DesktopShortcut iconSrc={WORK_EXPERIENCE_APPLICATION_ICON_URL} iconTxt={'Work Experience'}
                                      onClick={openWorkExperiencePage}/>
+                    <DesktopShortcut iconSrc={NANO_RACKS_AND_ROBOTICS_APPLICATION_ICON_URL}
+                                     iconTxt={'Nano Racks and Robotics'} onClick={openNanoRacksAndRoboticsPage}/>
                     <DesktopShortcut iconSrc={'github-logo-dark.png'} iconTxt={'Github'} onClick={openGithub}/>
                     <DesktopShortcut iconSrc={'linkedin-logo.png'} iconTxt={'Linkedin'} onClick={openLinkedin}/>
                     <DesktopShortcut iconSrc={MY_PROJECTS_APPLICATION_ICON_URL} iconTxt={'Projects'}
@@ -312,6 +322,18 @@ export default function Windows98() {
                                         setIsMaximized={setIsMaximized} closeWindow={closeWindow}
                                         setPosition={setPosition} setSize={setSize}>
                         <WorkExperience/>
+                    </Windows98AppWindow>
+                }
+
+                {applicationWindows.get(NANO_RACKS_AND_ROBOTICS_APPLICATION_NAME) !== undefined &&
+
+                    <Windows98AppWindow
+                        // @ts-ignore
+                        appWindowModel={applicationWindows.get(NANO_RACKS_AND_ROBOTICS_APPLICATION_NAME)}
+                        setIsFocused={setIsFocused} setIsMinimized={setIsMinimized}
+                        setIsMaximized={setIsMaximized} closeWindow={closeWindow}
+                        setPosition={setPosition} setSize={setSize}>
+                        <NanoRacksAndRobotics/>
                     </Windows98AppWindow>
                 }
                 <StartBar applicationWindows={applicationWindows} setIsMinimized={setIsMinimized}
