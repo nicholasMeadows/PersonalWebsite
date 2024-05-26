@@ -1,5 +1,5 @@
 import '../css/windows-98-app-window.css'
-import React, {MouseEvent as ReactMouseEvent, ReactNode, useCallback, useEffect, useRef, useState} from "react";
+import React, {MouseEvent as ReactMouseEvent, ReactNode, useCallback, useEffect, useRef} from "react";
 import {ApplicationWindowModel} from "@/app/windows-98/page";
 
 type Props = {
@@ -9,6 +9,8 @@ type Props = {
     setIsMaximized: (appName: string, isMaximized: boolean) => void,
     setIsMinimized: (appName: string, isMinimized: boolean) => void,
     closeWindow: (appName: string) => void,
+    setPosition: (appName: string, position: { top: number, left: number }) => void
+    setSize: (appName: string, size: { width: number, height: number }) => void
 }
 export default function Windows98AppWindow({
                                                children,
@@ -16,27 +18,12 @@ export default function Windows98AppWindow({
                                                setIsFocused,
                                                setIsMinimized,
                                                setIsMaximized,
-                                               closeWindow
+                                               closeWindow,
+                                               setPosition, setSize
                                            }: Props) {
-    const [position, setPosition] = useState({left: 0, top: 0})
-    const [size, setSize] = useState({width: 500, height: 400});
-
     const windowDivRef = useRef<HTMLDivElement>(null);
     const windowHeaderMouseOffset = useRef({x: 0, y: 0})
     const mouseDownOnWindowHeader = useRef(false);
-
-    useEffect(() => {
-        const windowWidth = window.innerWidth
-        const windowHeight = window.innerHeight
-        setSize({
-            width: windowWidth / 1.8,
-            height: windowHeight / 1.5
-        })
-        setPosition({
-            top: windowHeight / 8,
-            left: windowWidth / 6
-        })
-    }, []);
 
     const moveWindow = useCallback((event: MouseEvent) => {
         if (!mouseDownOnWindowHeader.current) {
@@ -45,11 +32,11 @@ export default function Windows98AppWindow({
         if (appWindowModel.isMaximized) {
             setIsMaximized(appWindowModel.appName, false);
         }
-        setPosition({
+        setPosition(appWindowModel.appName, {
             left: event.clientX - windowHeaderMouseOffset.current.x,
             top: event.clientY - windowHeaderMouseOffset.current.y
         })
-    }, [appWindowModel.appName, appWindowModel.isMaximized, setIsMaximized]);
+    }, [appWindowModel.appName, appWindowModel.isMaximized, setIsMaximized, setPosition]);
 
     const onWindowHeaderMouseDown = useCallback((event: ReactMouseEvent) => {
         const windowDiv = windowDivRef.current;
@@ -66,17 +53,17 @@ export default function Windows98AppWindow({
             const currentYOffsetPercent = (currentYOffsetPx / windowDivRect.height) * 100;
 
             windowHeaderMouseOffset.current = {
-                x: size.width * (currentXOffsetPercent / 100),
-                y: size.height * (currentYOffsetPercent / 100)
+                x: appWindowModel.size.width * (currentXOffsetPercent / 100),
+                y: appWindowModel.size.height * (currentYOffsetPercent / 100)
             }
         } else {
             windowHeaderMouseOffset.current = {
-                x: event.clientX - position.left,
-                y: event.clientY - position.top
+                x: event.clientX - appWindowModel.position.left,
+                y: event.clientY - appWindowModel.position.top
             }
         }
         mouseDownOnWindowHeader.current = true
-    }, [appWindowModel.isMaximized, position.left, position.top, size.height, size.width])
+    }, [appWindowModel.isMaximized, appWindowModel.position.left, appWindowModel.position.top, appWindowModel.size.height, appWindowModel.size.width])
 
     const onWindowHeaderMouseUp = useCallback(() => {
         windowHeaderMouseOffset.current = {
@@ -98,69 +85,68 @@ export default function Windows98AppWindow({
         const deltaY = (event.clientY - lastResizerMouseDown.current.y);
 
         if (resizerClassList.includes('resizer-top-left')) {
-            setSize({
-                width: size.width - deltaX,
-                height: size.height - deltaY,
+            setSize(appWindowModel.appName, {
+                width: appWindowModel.size.width - deltaX,
+                height: appWindowModel.size.height - deltaY,
             })
-            setPosition({
-                left: position.left + deltaX,
-                top: position.top + deltaY
+            setPosition(appWindowModel.appName, {
+                left: appWindowModel.position.left + deltaX,
+                top: appWindowModel.position.top + deltaY
             })
         } else if (resizerClassList.includes('resizer-top-right')) {
-            setSize({
-                width: size.width + deltaX,
-                height: size.height - deltaY,
+            setSize(appWindowModel.appName, {
+                width: appWindowModel.size.width + deltaX,
+                height: appWindowModel.size.height - deltaY,
             })
-            setPosition({
-                left: position.left,
-                top: position.top + deltaY
+            setPosition(appWindowModel.appName, {
+                left: appWindowModel.position.left,
+                top: appWindowModel.position.top + deltaY
             })
         } else if (resizerClassList.includes('resizer-bottom-right')) {
-            console.log('test', deltaX)
-            setSize({
-                width: size.width + deltaX,
-                height: size.height + deltaY,
+            setSize(appWindowModel.appName, {
+                width: appWindowModel.size.width + deltaX,
+                height: appWindowModel.size.height + deltaY,
             })
         } else if (resizerClassList.includes('resizer-bottom-left')) {
-            setSize({
-                width: size.width - deltaX,
-                height: size.height + deltaY,
+            setSize(appWindowModel.appName, {
+                width: appWindowModel.size.width - deltaX,
+                height: appWindowModel.size.height + deltaY,
             })
-            setPosition({
-                left: position.left + deltaX,
-                top: position.top
+            setPosition(appWindowModel.appName, {
+                left: appWindowModel.position.left + deltaX,
+                top: appWindowModel.position.top
             })
         } else if (resizerClassList.includes('resizer-right')) {
-            setSize({
-                width: size.width + (event.clientX - lastResizerMouseDown.current.x),
-                height: size.height,
+            setSize(appWindowModel.appName, {
+                width: appWindowModel.size.width + (event.clientX - lastResizerMouseDown.current.x),
+                height: appWindowModel.size.height,
             })
         } else if (resizerClassList.includes('resizer-left')) {
-            setSize({
-                width: size.width - deltaX,
-                height: size.height,
+            setSize(appWindowModel.appName, {
+                width: appWindowModel.size.width - deltaX,
+                height: appWindowModel.size.height,
             })
-            setPosition({
-                left: position.left + deltaX,
-                top: position.top
+            setPosition(appWindowModel.appName, {
+                left: appWindowModel.position.left + deltaX,
+                top: appWindowModel.position.top
             })
         } else if (resizerClassList.includes('resizer-bottom')) {
-            setSize({
-                width: size.width,
-                height: size.height + deltaY,
+            setSize(appWindowModel.appName, {
+                width: appWindowModel.size.width,
+                height: appWindowModel.size.height + deltaY,
             })
         } else if (resizerClassList.includes('resizer-top')) {
-            setSize({
-                width: size.width,
-                height: size.height - deltaY,
+            setSize(appWindowModel.appName, {
+                width: appWindowModel.size.width,
+                height: appWindowModel.size.height - deltaY,
             })
-            setPosition({
-                left: position.left,
-                top: position.top + deltaY
+            setPosition(appWindowModel.appName, {
+                left: appWindowModel.position.left,
+                top: appWindowModel.position.top + deltaY
             })
         }
         lastResizerMouseDown.current = {x: event.clientX, y: event.clientY}
-    }, [position.left, position.top, size.height, size.width])
+    }, [appWindowModel.appName, appWindowModel.position.left, appWindowModel.position.top, appWindowModel.size.height, appWindowModel.size.width, setPosition, setSize])
 
     const onResizerMouseDown = useCallback((event: ReactMouseEvent) => {
         mouseDownOnResizerClassList.current = (event.target as HTMLDivElement).className;
@@ -189,12 +175,12 @@ export default function Windows98AppWindow({
 
     return <div className={`window  ${appWindowModel.isMaximized ? 'window-maximized' : ''}`}
                 style={{
-                    left: `${appWindowModel.isMaximized ? 0 : position.left}px`,
-                    top: `${appWindowModel.isMaximized ? 0 : position.top}px`,
+                    left: `${appWindowModel.isMaximized ? 0 : appWindowModel.position.left}px`,
+                    top: `${appWindowModel.isMaximized ? 0 : appWindowModel.position.top}px`,
                     bottom: `${appWindowModel.isMaximized ? 'calc(0px + var(--start-bar-height) + var(--start-bar-border-top-width))' : 'unset'}`,
                     right: `${appWindowModel.isMaximized ? '0px' : 'unset'}`,
-                    width: `${appWindowModel.isMaximized ? 'unset' : size.width + 'px'}`,
-                    height: `${appWindowModel.isMaximized ? 'unset' : size.height + 'px'}`,
+                    width: `${appWindowModel.isMaximized ? 'unset' : appWindowModel.size.width + 'px'}`,
+                    height: `${appWindowModel.isMaximized ? 'unset' : appWindowModel.size.height + 'px'}`,
                     display: `${appWindowModel.isMinimized ? 'none' : ''}`,
                     zIndex: appWindowModel.zIndex
                 }} ref={windowDivRef} onMouseDownCapture={() => setIsFocused(appWindowModel.appName, true)}>

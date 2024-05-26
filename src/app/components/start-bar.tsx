@@ -32,7 +32,16 @@ export default function StartBar({applicationWindows, setIsFocused, setIsMinimiz
             <p>Start</p>
         </div>
         <div className={'open-applications-box'}>
-            {Array.from(applicationWindows).map(mapEntry => {
+            {Array.from(applicationWindows).sort((window1, window2) => {
+                const openedTimestamp1 = window1[1].openedWindowTimestamp;
+                const openedTimestamp2 = window2[1].openedWindowTimestamp;
+                if (openedTimestamp1 > openedTimestamp2) {
+                    return 1;
+                } else if (openedTimestamp1 < openedTimestamp2) {
+                    return -1;
+                }
+                return 0;
+            }).map(mapEntry => {
                 const applicationWindow = mapEntry[1];
                 return <div key={applicationWindow.appName}
                             className={`task-bar-app-box ${applicationWindow.isFocused ? 'active' : ''}`}

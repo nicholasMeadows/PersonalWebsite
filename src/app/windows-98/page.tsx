@@ -16,13 +16,16 @@ import '../css/about-me.css'
 import '../css/work-experience.css'
 
 export type ApplicationWindowModel = {
+    openedWindowTimestamp: number,
     iconUrl: string,
     appName: string,
     isOpen: boolean,
     isFocused: boolean,
     isMaximized: boolean,
     isMinimized: boolean
-    zIndex: number
+    zIndex: number,
+    size: { width: number, height: number },
+    position: { top: number, left: number }
 }
 const INTRO_APPLICATION_NAME = "Nicholas Meadows"
 const INTRO_APPLICATION_ICON_URL = "nicholas-picture-1.png"
@@ -50,6 +53,22 @@ export default function Windows98() {
     }, [])
 
     const [applicationWindows, setApplicationWindows] = useState<Map<string, ApplicationWindowModel>>(new Map());
+
+    const setSize = useCallback((appName: string, size: { width: number, height: number }) => {
+        const windowModel = applicationWindows.get(appName);
+        if (windowModel !== undefined) {
+            windowModel.size = size;
+            setApplicationWindows(new Map(applicationWindows));
+        }
+    }, [applicationWindows])
+
+    const setPosition = useCallback((appName: string, position: { top: number, left: number }) => {
+        const windowModel = applicationWindows.get(appName);
+        if (windowModel !== undefined) {
+            windowModel.position = position;
+            setApplicationWindows(new Map(applicationWindows));
+        }
+    }, [applicationWindows])
 
     const closeWindow = useCallback((appName: string) => {
         playMouseClickSoundEffect()
@@ -123,12 +142,29 @@ export default function Windows98() {
             return;
         }
 
-        let maxZIndex: number = 0;
+        let windowEntityOnTop: [string, ApplicationWindowModel] | undefined;
         Array.from(applicationWindows.entries()).forEach((entity) => {
-            if (entity[1].zIndex > maxZIndex) {
-                maxZIndex = entity[1].zIndex;
+            if (windowEntityOnTop === undefined || entity[1].zIndex > windowEntityOnTop[1].zIndex) {
+                windowEntityOnTop = entity;
             }
         });
+
+
+        const windowWidth = window.innerWidth
+        const windowHeight = window.innerHeight
+        const size = {
+            width: windowWidth / 1.8,
+            height: windowHeight / 1.5
+        };
+        const position = {
+            top: windowHeight / 8,
+            left: windowWidth / 6
+        };
+
+        if (windowEntityOnTop !== undefined) {
+            position.top = windowEntityOnTop[1].position.top + 50;
+            position.left = windowEntityOnTop[1].position.left + 50;
+        }
 
         const appWindowModel: ApplicationWindowModel = {
             iconUrl: iconUrl,
@@ -137,7 +173,10 @@ export default function Windows98() {
             isFocused: true,
             isMaximized: false,
             isMinimized: false,
-            zIndex: maxZIndex + 5
+            zIndex: windowEntityOnTop === undefined ? 80 : windowEntityOnTop[1].zIndex,
+            position: position,
+            size: size,
+            openedWindowTimestamp: Date.now()
         }
         applicationWindows.set(appName, appWindowModel);
         setApplicationWindows(new Map(applicationWindows));
@@ -202,7 +241,8 @@ export default function Windows98() {
                     // @ts-ignore
                     <Windows98AppWindow appWindowModel={applicationWindows.get(INTRO_APPLICATION_NAME)}
                                         setIsFocused={setIsFocused} setIsMinimized={setIsMinimized}
-                                        setIsMaximized={setIsMaximized} closeWindow={closeWindow}>
+                                        setIsMaximized={setIsMaximized} closeWindow={closeWindow}
+                                        setPosition={setPosition} setSize={setSize}>
                         <Home/>
                     </Windows98AppWindow>
                 }
@@ -211,7 +251,8 @@ export default function Windows98() {
                     // @ts-ignore
                     <Windows98AppWindow appWindowModel={applicationWindows.get(ABOUT_ME_APPLICATION_NAME)}
                                         setIsFocused={setIsFocused} setIsMinimized={setIsMinimized}
-                                        setIsMaximized={setIsMaximized} closeWindow={closeWindow}>
+                                        setIsMaximized={setIsMaximized} closeWindow={closeWindow}
+                                        setPosition={setPosition} setSize={setSize}>
                         <AboutMe/>
                     </Windows98AppWindow>
                 }
@@ -219,7 +260,8 @@ export default function Windows98() {
                     // @ts-ignore
                     <Windows98AppWindow appWindowModel={applicationWindows.get(MY_PROJECTS_APPLICATION_NAME)}
                                         setIsFocused={setIsFocused} setIsMinimized={setIsMinimized}
-                                        setIsMaximized={setIsMaximized} closeWindow={closeWindow}>
+                                        setIsMaximized={setIsMaximized} closeWindow={closeWindow}
+                                        setPosition={setPosition} setSize={setSize}>
                         <Projects/>
                     </Windows98AppWindow>
                 }
@@ -228,7 +270,8 @@ export default function Windows98() {
                     // @ts-ignore
                     <Windows98AppWindow appWindowModel={applicationWindows.get(WORK_EXPERIENCE_APPLICATION_NAME)}
                                         setIsFocused={setIsFocused} setIsMinimized={setIsMinimized}
-                                        setIsMaximized={setIsMaximized} closeWindow={closeWindow}>
+                                        setIsMaximized={setIsMaximized} closeWindow={closeWindow}
+                                        setPosition={setPosition} setSize={setSize}>
                         <WorkExperience/>
                     </Windows98AppWindow>
                 }
