@@ -210,13 +210,52 @@ export default function Windows98() {
         }, 100)
     }, [])
 
+    const [showScreenSaver, setShowScreenSaver] = useState(false);
+    const screenSaverVideoElementRef = useRef<HTMLVideoElement>(null);
+    const screenSaverTimeout = useRef<NodeJS.Timeout>();
+    const setupScreenSaverTimeout = useCallback(() => {
+        if (screenSaverTimeout.current !== undefined) {
+            clearTimeout(screenSaverTimeout.current);
+        }
+        if (!showStartup && !showScreenSaver) {
+            screenSaverTimeout.current = setTimeout(() => {
+                const screenSaverVideoElement = screenSaverVideoElementRef.current
+                if (screenSaverVideoElement !== null) {
+                    screenSaverVideoElement.fastSeek(0)
+                    screenSaverVideoElement.volume = 0;
+                    screenSaverVideoElement.play();
+                    setShowScreenSaver(true);
+                }
+            }, 60000);
+        }
+    }, [showScreenSaver, showStartup])
+
+    useEffect(() => {
+        setupScreenSaverTimeout();
+    }, [setupScreenSaverTimeout]);
+
+    const hideScreenSaver = useCallback(() => {
+        const screenSaverVideoElement = screenSaverVideoElementRef.current
+        if (screenSaverVideoElement !== null) {
+            screenSaverVideoElement.pause();
+            setShowScreenSaver(false);
+        }
+        setupScreenSaverTimeout();
+    }, [setupScreenSaverTimeout])
     return <>
         {showStartup &&
             <Windows98Startup onEnded={onStartupFinished}/>
         }
-        {!showStartup &&
 
-            <div className={'desktop'}>
+        <div className={'screensaver-background'} style={{display: `${!showStartup && showScreenSaver ? '' : 'none'}`}}
+             onMouseMove={() => hideScreenSaver()}>
+            <video className={'screensaver-video'} ref={screenSaverVideoElementRef} loop={true}>
+                <source src={'windows-98-maze-screensaver.mp4'}/>
+            </video>
+        </div>
+
+        {!showStartup && !showScreenSaver &&
+            <div className={'desktop'} onMouseMove={() => hideScreenSaver()}>
                 <audio src={'mouse-click-sound-effect.mp3'} ref={mouseClickSoundEffectAudioRef}/>
                 <div className={'desktop-icons'}>
                     <DesktopShortcut iconSrc={INTRO_APPLICATION_ICON_URL} iconTxt={'Intro'} onClick={openIntroPage}/>
