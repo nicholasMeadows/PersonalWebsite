@@ -1,0 +1,39 @@
+@font-face {
+    font-family: "Sans Nouveaux";
+    src: url("/px_sans_nouveaux.ttf")
+}
+
+body {
+    margin: 0;
+    overflow: hidden;
+}
+
+html * {
+    font-family: "Sans Nouveaux";
+}
+
+.desktop {
+    --start-bar-height: 3em;
+    --start-bar-border-top-width: 0.2em;
+    width: 100vw;
+    height: 100vh;
+    max-height: 100vh;
+    background-color: #55aaaa;
+    display: flex;
+    flex-direction: column;
+    user-select: none;
+    overflow: hidden;
+}
+
+.desktop-icons {
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    flex-basis: 400px;
+    flex-wrap: wrap;
+    gap: 1.5em;
+    flex-grow: 1;
+    padding: 1em;
+    align-content: flex-start;
+    column-gap: 0;
+}
