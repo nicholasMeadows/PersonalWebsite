@@ -280,10 +280,10 @@ export default function Windows98() {
                                      onClick={openWorkExperiencePage}/>
                     <DesktopShortcut iconSrc={NANO_RACKS_AND_ROBOTICS_APPLICATION_ICON_URL}
                                      iconTxt={'Nano Racks and Robotics'} onClick={openNanoRacksAndRoboticsPage}/>
-                    <DesktopShortcut iconSrc={'github-logo-dark.png'} iconTxt={'Github'} onClick={openGithub}/>
-                    <DesktopShortcut iconSrc={'linkedin-logo.png'} iconTxt={'Linkedin'} onClick={openLinkedin}/>
                     <DesktopShortcut iconSrc={MY_PROJECTS_APPLICATION_ICON_URL} iconTxt={'Projects'}
                                      onClick={openMyProjectsPage}/>
+                    <DesktopShortcut iconSrc={'github-logo-dark.png'} iconTxt={'Github'} onClick={openGithub}/>
+                    <DesktopShortcut iconSrc={'linkedin-logo.png'} iconTxt={'Linkedin'} onClick={openLinkedin}/>
                 </div>
 
                 {applicationWindows.get(INTRO_APPLICATION_NAME) !== undefined &&
