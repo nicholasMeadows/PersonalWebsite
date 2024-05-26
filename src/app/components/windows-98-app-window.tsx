@@ -29,15 +29,15 @@ export default function Windows98AppWindow({
         const windowWidth = window.innerWidth
         const windowHeight = window.innerHeight
         setSize({
-            width: windowWidth / 1.2,
+            width: windowWidth / 1.8,
             height: windowHeight / 1.5
         })
         setPosition({
             top: windowHeight / 8,
-            left: windowWidth / 8
+            left: windowWidth / 6
         })
     }, []);
-    
+
     const moveWindow = useCallback((event: MouseEvent) => {
         if (!mouseDownOnWindowHeader.current) {
             return;

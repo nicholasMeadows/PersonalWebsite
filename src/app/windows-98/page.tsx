@@ -8,6 +8,7 @@ import WorkExperience from "@/app/personal-website/work-experience/page";
 import AboutMe from "@/app/personal-website/about-me/page";
 import Projects from "@/app/personal-website/projects/page";
 import Home from "@/app/personal-website/home-page/page";
+import Windows98Startup from "@/app/components/windows-98-startup"
 
 import '../css/home-page.css'
 import '../css/projects.css'
@@ -129,61 +130,78 @@ export default function Windows98() {
     useEffect(() => {
         openIntroPage();
     }, []);
+
+    const [showStartup, setShowStartup] = useState(true);
+    const onStartupFinished = useCallback(() => {
+        setTimeout(() => {
+            setShowStartup(false);
+        }, 100)
+    }, [])
     
-    return <div className={'desktop'}>
-        <audio src={'mouse-click-sound-effect.mp3'} ref={mouseClickSoundEffectAudioRef}/>
-        <div className={'desktop-icons'}>
-            <DesktopShortcut iconSrc={INTRO_APPLICATION_ICON_URL} iconTxt={'Intro'} onClick={openIntroPage}/>
-            <DesktopShortcut iconSrc={ABOUT_ME_APPLICATION_ICON_URL} iconTxt={'About-Me'} onClick={openAboutMePage}/>
-            <a href={"/resume/Fullstack Engineer Resume.pdf"} target={'_blank'} style={{
-                color: 'inherit',
-                textDecoration: 'inherit'
-            }}>
-                <DesktopShortcut iconSrc={'windows-icons/document-0.png'} iconTxt={'Fullstack Developer Resume'}/>
-            </a>
-            <DesktopShortcut iconSrc={WORK_EXPERIENCE_APPLICATION_ICON_URL} iconTxt={'Work Experience'}
-                             onClick={openWorkExperiencePage}/>
-            <DesktopShortcut iconSrc={'github-logo-dark.png'} iconTxt={'Github'} onClick={openGithub}/>
-            <DesktopShortcut iconSrc={'linkedin-logo.png'} iconTxt={'Linkedin'} onClick={openLinkedin}/>
-            <DesktopShortcut iconSrc={MY_PROJECTS_APPLICATION_ICON_URL} iconTxt={'Projects'}
-                             onClick={openMyProjectsPage}/>
-        </div>
+    return <>
+        {showStartup &&
+            <Windows98Startup onEnded={onStartupFinished}/>
+        }
+        {!showStartup &&
 
-        {applicationWindows.get(INTRO_APPLICATION_NAME) !== undefined &&
-            // @ts-ignore
-            <Windows98AppWindow appWindowModel={applicationWindows.get(INTRO_APPLICATION_NAME)}
-                                setIsFocused={setIsFocused} setIsMinimized={setIsMinimized}
-                                setIsMaximized={setIsMaximized} closeWindow={closeWindow}>
-                <Home/>
-            </Windows98AppWindow>
-        }
+            <div className={'desktop'}>
+                <audio src={'mouse-click-sound-effect.mp3'} ref={mouseClickSoundEffectAudioRef}/>
+                <div className={'desktop-icons'}>
+                    <DesktopShortcut iconSrc={INTRO_APPLICATION_ICON_URL} iconTxt={'Intro'} onClick={openIntroPage}/>
+                    <DesktopShortcut iconSrc={ABOUT_ME_APPLICATION_ICON_URL} iconTxt={'About-Me'}
+                                     onClick={openAboutMePage}/>
+                    <a href={"/resume/Fullstack Engineer Resume.pdf"} target={'_blank'} style={{
+                        color: 'inherit',
+                        textDecoration: 'inherit'
+                    }}>
+                        <DesktopShortcut iconSrc={'windows-icons/document-0.png'}
+                                         iconTxt={'Fullstack Developer Resume'}/>
+                    </a>
+                    <DesktopShortcut iconSrc={WORK_EXPERIENCE_APPLICATION_ICON_URL} iconTxt={'Work Experience'}
+                                     onClick={openWorkExperiencePage}/>
+                    <DesktopShortcut iconSrc={'github-logo-dark.png'} iconTxt={'Github'} onClick={openGithub}/>
+                    <DesktopShortcut iconSrc={'linkedin-logo.png'} iconTxt={'Linkedin'} onClick={openLinkedin}/>
+                    <DesktopShortcut iconSrc={MY_PROJECTS_APPLICATION_ICON_URL} iconTxt={'Projects'}
+                                     onClick={openMyProjectsPage}/>
+                </div>
 
-        {applicationWindows.get(ABOUT_ME_APPLICATION_NAME) !== undefined &&
-            // @ts-ignore
-            <Windows98AppWindow appWindowModel={applicationWindows.get(ABOUT_ME_APPLICATION_NAME)}
-                                setIsFocused={setIsFocused} setIsMinimized={setIsMinimized}
-                                setIsMaximized={setIsMaximized} closeWindow={closeWindow}>
-                <AboutMe/>
-            </Windows98AppWindow>
-        }
-        {applicationWindows.get(MY_PROJECTS_APPLICATION_NAME) !== undefined &&
-            // @ts-ignore
-            <Windows98AppWindow appWindowModel={applicationWindows.get(MY_PROJECTS_APPLICATION_NAME)}
-                                setIsFocused={setIsFocused} setIsMinimized={setIsMinimized}
-                                setIsMaximized={setIsMaximized} closeWindow={closeWindow}>
-                <Projects/>
-            </Windows98AppWindow>
-        }
+                {applicationWindows.get(INTRO_APPLICATION_NAME) !== undefined &&
+                    // @ts-ignore
+                    <Windows98AppWindow appWindowModel={applicationWindows.get(INTRO_APPLICATION_NAME)}
+                                        setIsFocused={setIsFocused} setIsMinimized={setIsMinimized}
+                                        setIsMaximized={setIsMaximized} closeWindow={closeWindow}>
+                        <Home/>
+                    </Windows98AppWindow>
+                }
 
-        {applicationWindows.get(WORK_EXPERIENCE_APPLICATION_NAME) !== undefined &&
-            // @ts-ignore
-            <Windows98AppWindow appWindowModel={applicationWindows.get(WORK_EXPERIENCE_APPLICATION_NAME)}
-                                setIsFocused={setIsFocused} setIsMinimized={setIsMinimized}
-                                setIsMaximized={setIsMaximized} closeWindow={closeWindow}>
-                <WorkExperience/>
-            </Windows98AppWindow>
+                {applicationWindows.get(ABOUT_ME_APPLICATION_NAME) !== undefined &&
+                    // @ts-ignore
+                    <Windows98AppWindow appWindowModel={applicationWindows.get(ABOUT_ME_APPLICATION_NAME)}
+                                        setIsFocused={setIsFocused} setIsMinimized={setIsMinimized}
+                                        setIsMaximized={setIsMaximized} closeWindow={closeWindow}>
+                        <AboutMe/>
+                    </Windows98AppWindow>
+                }
+                {applicationWindows.get(MY_PROJECTS_APPLICATION_NAME) !== undefined &&
+                    // @ts-ignore
+                    <Windows98AppWindow appWindowModel={applicationWindows.get(MY_PROJECTS_APPLICATION_NAME)}
+                                        setIsFocused={setIsFocused} setIsMinimized={setIsMinimized}
+                                        setIsMaximized={setIsMaximized} closeWindow={closeWindow}>
+                        <Projects/>
+                    </Windows98AppWindow>
+                }
+
+                {applicationWindows.get(WORK_EXPERIENCE_APPLICATION_NAME) !== undefined &&
+                    // @ts-ignore
+                    <Windows98AppWindow appWindowModel={applicationWindows.get(WORK_EXPERIENCE_APPLICATION_NAME)}
+                                        setIsFocused={setIsFocused} setIsMinimized={setIsMinimized}
+                                        setIsMaximized={setIsMaximized} closeWindow={closeWindow}>
+                        <WorkExperience/>
+                    </Windows98AppWindow>
+                }
+                <StartBar applicationWindows={applicationWindows} setIsMinimized={setIsMinimized}
+                          setIsFocused={setIsFocused}></StartBar>
+            </div>
         }
-        <StartBar applicationWindows={applicationWindows} setIsMinimized={setIsMinimized}
-                  setIsFocused={setIsFocused}></StartBar>
-    </div>
+    </>
 }

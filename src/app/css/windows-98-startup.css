@@ -1,0 +1,93 @@
+.startup-background {
+    background-color: black;
+    width: 100dvw;
+    height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.power-button-and-text-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.power-button-and-text-wrapper > p {
+    color: white;
+    font-size: 1.6em;
+    white-space: nowrap;
+    flex-shrink: 1;
+    margin: 0;
+}
+
+.power-button-wrapper {
+    background: linear-gradient(-45deg, black, white);
+    border-radius: 1em;
+    padding: 0.2em;
+}
+
+.power-button-wrapper:active {
+    background: linear-gradient(135deg, black, white);
+}
+
+.power-button {
+    transition: opacity 2s;
+    background: #FFFDD0;
+    width: 5em;
+    height: 5em;
+    border-radius: 1em;
+    position: relative;
+    cursor: pointer;
+    z-index: 50;
+}
+
+.button::before {
+    /*  pseudo-elements don't display if content property is not declared */
+    content: "";
+    /*  design the inner-ring */
+    width: 50%;
+    height: 50%;
+    border: 0.5em solid black;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.light {
+    /*  design the vertical light */
+    height: 30%;
+    width: 10px;
+    background: black;
+    border-radius: 10px;
+
+    /*  position the light correctly */
+    position: absolute;
+    top: 25%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    /*  required to give white-space to inner-ring */
+    box-shadow: 0 0 0 0.5em #FFFDD0;
+}
+
+.bar-on {
+    background-color: lightgreen;
+}
+
+.circle-on:before {
+    border-color: lightgreen;
+}
+
+.startup-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100dvw;
+    height: 100dvh;
+    opacity: 0;
+    transition: opacity 2s;
+    z-index: 20;
+}
