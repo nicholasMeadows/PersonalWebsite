@@ -1,6 +1,6 @@
 "use client"
 import StartBar from "@/app/components/start-bar";
-import React, {useCallback, useEffect, useState} from "react";
+import React, {useCallback, useEffect, useRef, useState} from "react";
 import DesktopShortcut from "@/app/components/desktop-shortcut"
 import '../css/windows-98.css'
 import Windows98AppWindow from "@/app/components/windows-98-app-window";
@@ -32,6 +32,14 @@ const WORK_EXPERIENCE_APPLICATION_NAME = "Work Experience";
 const WORK_EXPERIENCE_APPLICATION_ICON_URL = "windows-icons/document-0.png";
 
 export default function Windows98() {
+    const mouseClickSoundEffectAudioRef = useRef<HTMLAudioElement>(null)
+    const playMouseClickSoundEffect = useCallback(() => {
+        const mouseCLickSoundEffectAudio = mouseClickSoundEffectAudioRef.current;
+        if (mouseCLickSoundEffectAudio !== null) {
+            mouseCLickSoundEffectAudio.play();
+        }
+    }, [])
+
     const openGithub = useCallback(() => {
         window.open('https://github.com/nicholasMeadows', "_blank")
     }, [])
@@ -42,6 +50,7 @@ export default function Windows98() {
     const [applicationWindows, setApplicationWindows] = useState<Map<string, ApplicationWindowModel>>(new Map());
 
     const closeWindow = useCallback((appName: string) => {
+        playMouseClickSoundEffect()
         applicationWindows.delete(appName);
         setApplicationWindows(new Map(applicationWindows));
     }, [applicationWindows])
@@ -63,6 +72,7 @@ export default function Windows98() {
     }, [applicationWindows])
 
     const setIsMinimized = useCallback((appName: string, isMinimized: boolean) => {
+        playMouseClickSoundEffect()
         const applicationWindow = applicationWindows.get(appName);
         if (applicationWindow === undefined) {
             return;
@@ -72,6 +82,7 @@ export default function Windows98() {
     }, [applicationWindows])
 
     const setIsMaximized = useCallback((appName: string, isMaximized: boolean) => {
+        playMouseClickSoundEffect()
         const applicationWindow = applicationWindows.get(appName);
         if (applicationWindow === undefined) {
             return;
@@ -82,6 +93,7 @@ export default function Windows98() {
 
 
     const openWindow = useCallback((appName: string, iconUrl: string) => {
+        playMouseClickSoundEffect()
         if (applicationWindows.get(appName) !== undefined) {
             return;
         }
@@ -117,7 +129,9 @@ export default function Windows98() {
     useEffect(() => {
         openIntroPage();
     }, []);
+    
     return <div className={'desktop'}>
+        <audio src={'mouse-click-sound-effect.mp3'} ref={mouseClickSoundEffectAudioRef}/>
         <div className={'desktop-icons'}>
             <DesktopShortcut iconSrc={INTRO_APPLICATION_ICON_URL} iconTxt={'Intro'} onClick={openIntroPage}/>
             <DesktopShortcut iconSrc={ABOUT_ME_APPLICATION_ICON_URL} iconTxt={'About-Me'} onClick={openAboutMePage}/>
