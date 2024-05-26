@@ -1,12 +1,18 @@
 "use client"
 import StartBar from "@/app/components/start-bar";
-import React, {useCallback, useState} from "react";
+import React, {useCallback, useEffect, useState} from "react";
 import DesktopShortcut from "@/app/components/desktop-shortcut"
 import '../css/windows-98.css'
 import Windows98AppWindow from "@/app/components/windows-98-app-window";
 import WorkExperience from "@/app/personal-website/work-experience/page";
 import AboutMe from "@/app/personal-website/about-me/page";
 import Projects from "@/app/personal-website/projects/page";
+import Home from "@/app/personal-website/home-page/page";
+
+import '../css/home-page.css'
+import '../css/projects.css'
+import '../css/about-me.css'
+import '../css/work-experience.css'
 
 export type ApplicationWindowModel = {
     iconUrl: string,
@@ -16,8 +22,10 @@ export type ApplicationWindowModel = {
     isMaximized: boolean,
     isMinimized: boolean
 }
+const INTRO_APPLICATION_NAME = "Nicholas Meadows"
+const INTRO_APPLICATION_ICON_URL = "nicholas-picture-1.png"
 const ABOUT_ME_APPLICATION_NAME = "About Me";
-const ABOUT_ME_APPLICATION_ICON_URL = "nicholas-picture-1.png"
+const ABOUT_ME_APPLICATION_ICON_URL = "about-me-header.png"
 const MY_PROJECTS_APPLICATION_NAME = "My Projects"
 const MY_PROJECTS_APPLICATION_ICON_URL = "3d-print-ghost-shell/ghost-shell-first-assembly.png"
 const WORK_EXPERIENCE_APPLICATION_NAME = "Work Experience";
@@ -34,14 +42,12 @@ export default function Windows98() {
     const [applicationWindows, setApplicationWindows] = useState<Map<string, ApplicationWindowModel>>(new Map());
 
     const closeWindow = useCallback((appName: string) => {
-        console.log(1)
         applicationWindows.delete(appName);
         setApplicationWindows(new Map(applicationWindows));
     }, [applicationWindows])
 
 
     const setIsFocused = useCallback((appName: string, isFocused: boolean) => {
-        console.log(2)
         const applicationWindow = applicationWindows.get(appName);
         if (applicationWindow === undefined) {
             return;
@@ -57,7 +63,6 @@ export default function Windows98() {
     }, [applicationWindows])
 
     const setIsMinimized = useCallback((appName: string, isMinimized: boolean) => {
-        console.log(3)
         const applicationWindow = applicationWindows.get(appName);
         if (applicationWindow === undefined) {
             return;
@@ -67,7 +72,6 @@ export default function Windows98() {
     }, [applicationWindows])
 
     const setIsMaximized = useCallback((appName: string, isMaximized: boolean) => {
-        console.log(4)
         const applicationWindow = applicationWindows.get(appName);
         if (applicationWindow === undefined) {
             return;
@@ -93,6 +97,10 @@ export default function Windows98() {
         setApplicationWindows(new Map(applicationWindows));
     }, [applicationWindows])
 
+    const openIntroPage = useCallback(() => {
+        openWindow(INTRO_APPLICATION_NAME, INTRO_APPLICATION_ICON_URL)
+        setIsFocused(INTRO_APPLICATION_NAME, true);
+    }, [openWindow, setIsFocused])
     const openAboutMePage = useCallback(() => {
         openWindow(ABOUT_ME_APPLICATION_NAME, ABOUT_ME_APPLICATION_ICON_URL)
         setIsFocused(ABOUT_ME_APPLICATION_NAME, true);
@@ -106,22 +114,35 @@ export default function Windows98() {
         setIsFocused(WORK_EXPERIENCE_APPLICATION_NAME, true);
     }, [openWindow, setIsFocused]);
 
+    useEffect(() => {
+        openIntroPage();
+    }, []);
     return <div className={'desktop'}>
         <div className={'desktop-icons'}>
-            <DesktopShortcut iconSrc={'nicholas-picture-1.png'} iconTxt={'About-Me'} onClick={openAboutMePage}/>
+            <DesktopShortcut iconSrc={INTRO_APPLICATION_ICON_URL} iconTxt={'Intro'} onClick={openIntroPage}/>
+            <DesktopShortcut iconSrc={ABOUT_ME_APPLICATION_ICON_URL} iconTxt={'About-Me'} onClick={openAboutMePage}/>
             <a href={"/resume/Fullstack Engineer Resume.pdf"} target={'_blank'} style={{
                 color: 'inherit',
                 textDecoration: 'inherit'
             }}>
                 <DesktopShortcut iconSrc={'windows-icons/document-0.png'} iconTxt={'Fullstack Developer Resume'}/>
             </a>
-            <DesktopShortcut iconSrc={'windows-icons/document-0.png'} iconTxt={'Work Experience'}
+            <DesktopShortcut iconSrc={WORK_EXPERIENCE_APPLICATION_ICON_URL} iconTxt={'Work Experience'}
                              onClick={openWorkExperiencePage}/>
             <DesktopShortcut iconSrc={'github-logo-dark.png'} iconTxt={'Github'} onClick={openGithub}/>
             <DesktopShortcut iconSrc={'linkedin-logo.png'} iconTxt={'Linkedin'} onClick={openLinkedin}/>
-            <DesktopShortcut iconSrc={'3d-print-ghost-shell/ghost-shell-first-assembly.png'} iconTxt={'Projects'}
+            <DesktopShortcut iconSrc={MY_PROJECTS_APPLICATION_ICON_URL} iconTxt={'Projects'}
                              onClick={openMyProjectsPage}/>
         </div>
+
+        {applicationWindows.get(INTRO_APPLICATION_NAME) !== undefined &&
+            // @ts-ignore
+            <Windows98AppWindow appWindowModel={applicationWindows.get(INTRO_APPLICATION_NAME)}
+                                setIsFocused={setIsFocused} setIsMinimized={setIsMinimized}
+                                setIsMaximized={setIsMaximized} closeWindow={closeWindow}>
+                <Home/>
+            </Windows98AppWindow>
+        }
 
         {applicationWindows.get(ABOUT_ME_APPLICATION_NAME) !== undefined &&
             // @ts-ignore

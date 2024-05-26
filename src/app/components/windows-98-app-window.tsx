@@ -25,6 +25,19 @@ export default function Windows98AppWindow({
     const windowHeaderMouseOffset = useRef({x: 0, y: 0})
     const mouseDownOnWindowHeader = useRef(false);
 
+    useEffect(() => {
+        const windowWidth = window.innerWidth
+        const windowHeight = window.innerHeight
+        setSize({
+            width: windowWidth / 1.2,
+            height: windowHeight / 1.5
+        })
+        setPosition({
+            top: windowHeight / 8,
+            left: windowWidth / 8
+        })
+    }, []);
+    
     const moveWindow = useCallback((event: MouseEvent) => {
         if (!mouseDownOnWindowHeader.current) {
             return;

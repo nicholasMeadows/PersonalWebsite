@@ -10,6 +10,7 @@
     border-right: black solid 0.2em;
     border-bottom: black solid 0.2em;
     padding: 0.2em;
+    font-size: 0.8em;
 }
 
 .window-maximized {
@@ -146,6 +147,7 @@
     background-color: white;
     overflow: scroll;
     padding: 1em;
+    height: 100%;
 }
 
 .resizer {

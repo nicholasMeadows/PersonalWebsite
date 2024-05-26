@@ -83,6 +83,7 @@
     gap: 0.2em;
     max-width: 20%;
     width: 100%;
+    overflow: hidden;
 }
 
 .task-bar-app-box.active {

@@ -15,8 +15,8 @@ html * {
 .desktop {
     --start-bar-height: 3em;
     --start-bar-border-top-width: 0.2em;
-    width: 100vw;
-    height: 100vh;
+    width: 100dvw;
+    height: 100dvh;
     max-height: 100vh;
     background-color: #55aaaa;
     display: flex;
