@@ -22,6 +22,7 @@ export type ApplicationWindowModel = {
     isFocused: boolean,
     isMaximized: boolean,
     isMinimized: boolean
+    zIndex: number
 }
 const INTRO_APPLICATION_NAME = "Nicholas Meadows"
 const INTRO_APPLICATION_ICON_URL = "nicholas-picture-1.png"
@@ -54,7 +55,7 @@ export default function Windows98() {
         playMouseClickSoundEffect()
         applicationWindows.delete(appName);
         setApplicationWindows(new Map(applicationWindows));
-    }, [applicationWindows])
+    }, [applicationWindows, playMouseClickSoundEffect])
 
 
     const setIsFocused = useCallback((appName: string, isFocused: boolean) => {
@@ -69,7 +70,30 @@ export default function Windows98() {
                 windowModel.isFocused = false;
             }
         });
-        setApplicationWindows(new Map(applicationWindows));
+
+        const applicationWindowsArray = Array.from(applicationWindows.entries());
+        applicationWindowsArray.sort((first, second) => {
+            const firstZIndex = first[1].zIndex;
+            const secondZIndex = second[1].zIndex;
+            if (firstZIndex > secondZIndex) {
+                return 1;
+            } else if (firstZIndex < secondZIndex) {
+                return -1;
+            }
+            return 0;
+        });
+
+        let zIndex = 80;
+        const adjustedZIndexes = applicationWindowsArray.map((entity) => {
+            if (entity[1].appName === appName) {
+                entity[1].zIndex = 195;
+                return entity;
+            }
+            entity[1].zIndex = zIndex;
+            zIndex += 5
+            return entity;
+        });
+        setApplicationWindows(new Map(adjustedZIndexes));
     }, [applicationWindows])
 
     const setIsMinimized = useCallback((appName: string, isMinimized: boolean) => {
@@ -80,7 +104,7 @@ export default function Windows98() {
         }
         applicationWindow.isMinimized = isMinimized;
         setApplicationWindows(new Map(applicationWindows));
-    }, [applicationWindows])
+    }, [applicationWindows, playMouseClickSoundEffect])
 
     const setIsMaximized = useCallback((appName: string, isMaximized: boolean) => {
         playMouseClickSoundEffect()
@@ -90,7 +114,7 @@ export default function Windows98() {
         }
         applicationWindow.isMaximized = isMaximized;
         setApplicationWindows(new Map(applicationWindows));
-    }, [applicationWindows])
+    }, [applicationWindows, playMouseClickSoundEffect])
 
 
     const openWindow = useCallback((appName: string, iconUrl: string) => {
@@ -98,6 +122,14 @@ export default function Windows98() {
         if (applicationWindows.get(appName) !== undefined) {
             return;
         }
+
+        let maxZIndex: number = 0;
+        Array.from(applicationWindows.entries()).forEach((entity) => {
+            if (entity[1].zIndex > maxZIndex) {
+                maxZIndex = entity[1].zIndex;
+            }
+        });
+
         const appWindowModel: ApplicationWindowModel = {
             iconUrl: iconUrl,
             appName: appName,
@@ -105,10 +137,11 @@ export default function Windows98() {
             isFocused: true,
             isMaximized: false,
             isMinimized: false,
+            zIndex: maxZIndex + 5
         }
         applicationWindows.set(appName, appWindowModel);
         setApplicationWindows(new Map(applicationWindows));
-    }, [applicationWindows])
+    }, [applicationWindows, playMouseClickSoundEffect])
 
     const openIntroPage = useCallback(() => {
         openWindow(INTRO_APPLICATION_NAME, INTRO_APPLICATION_ICON_URL)
@@ -137,7 +170,7 @@ export default function Windows98() {
             setShowStartup(false);
         }, 100)
     }, [])
-    
+
     return <>
         {showStartup &&
             <Windows98Startup onEnded={onStartupFinished}/>

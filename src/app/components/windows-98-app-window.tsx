@@ -196,7 +196,7 @@ export default function Windows98AppWindow({
                     width: `${appWindowModel.isMaximized ? 'unset' : size.width + 'px'}`,
                     height: `${appWindowModel.isMaximized ? 'unset' : size.height + 'px'}`,
                     display: `${appWindowModel.isMinimized ? 'none' : ''}`,
-                    zIndex: `${appWindowModel.isFocused ? '100' : '50'}`
+                    zIndex: appWindowModel.zIndex
                 }} ref={windowDivRef} onMouseDownCapture={() => setIsFocused(appWindowModel.appName, true)}>
         <div className={'resizer resizer resizer-top'} onMouseDown={onResizerMouseDown} onMouseUp={onResizerMouseUp}/>
         <div className={'resizer resizer resizer-right'} onMouseDown={onResizerMouseDown} onMouseUp={onResizerMouseUp}/>
