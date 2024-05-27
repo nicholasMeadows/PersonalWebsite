@@ -6,6 +6,8 @@
 body {
     margin: 0;
     overflow: hidden;
+    --windows-98-dark-border-color: #808080;
+    --windows-98-light-border-color: #ffffff;
 }
 
 html * {

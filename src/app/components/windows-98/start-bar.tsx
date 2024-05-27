@@ -5,10 +5,12 @@ import {ApplicationWindowModel} from "@/app/components/windows-98/windows-deskto
 type Props = {
     applicationWindows: Map<String, ApplicationWindowModel>,
     setIsFocused: (appName: string, isFocused: boolean) => void,
-    setIsMinimized: (appName: string, isMinimized: boolean) => void
+    setIsMinimized: (appName: string, isMinimized: boolean) => void,
+    onShutDownClick: () => void
 }
-export default function StartBar({applicationWindows, setIsFocused, setIsMinimized}: Props) {
+export default function StartBar({applicationWindows, setIsFocused, setIsMinimized, onShutDownClick}: Props) {
     const [time, setTime] = useState<string>();
+    const [startMenuOpen, setStartMenuOpen] = useState(false);
 
     useEffect(() => {
         const generateTime = () => {
@@ -27,7 +29,22 @@ export default function StartBar({applicationWindows, setIsFocused, setIsMinimiz
         }
     }, []);
     return <div className={'start-bar'}>
-        <div className={'task-bar-box start-button'}>
+        {startMenuOpen &&
+            <div className={'start-menu'}>
+                <div className={'windows-side-bar'}>
+                    <p>Windows 98</p>
+                </div>
+                <div className={'start-menu-main'}>
+                    <div className={'start-menu-spacer shutdown-btn-spacer'}></div>
+                    <div className={'shutdown-btn-box'} onClick={() => onShutDownClick()}>
+                        <img src={'windows-icons/shut_down_with_computer-0.png'}/>
+                        <p>Shut Down...</p>
+                    </div>
+                </div>
+            </div>
+        }
+
+        <div className={'task-bar-box start-button'} onClick={() => setStartMenuOpen(!startMenuOpen)}>
             <img src={'windows-icons/windows-0.png'} alt={''}/>
             <p>Start</p>
         </div>

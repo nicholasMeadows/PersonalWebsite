@@ -32,7 +32,10 @@ export type ApplicationWindowModel = {
     size: { width: number, height: number },
     position: { top: number, left: number }
 }
-export default function WindowsDesktop() {
+type Props = {
+    onShutDownClick: () => void
+}
+export default function WindowsDesktop({onShutDownClick}: Props) {
     const mouseClickSoundEffectAudioRef = useRef<HTMLAudioElement>(null)
     const playMouseClickSoundEffect = useCallback(() => {
         const mouseCLickSoundEffectAudio = mouseClickSoundEffectAudioRef.current;
@@ -279,6 +282,6 @@ export default function WindowsDesktop() {
             </Windows98AppWindow>
         }
         <StartBar applicationWindows={applicationWindows} setIsMinimized={setIsMinimized}
-                  setIsFocused={setIsFocused}></StartBar>
+                  setIsFocused={setIsFocused} onShutDownClick={onShutDownClick}></StartBar>
     </div>
 }

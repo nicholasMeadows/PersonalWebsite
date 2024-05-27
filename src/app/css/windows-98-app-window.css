@@ -5,10 +5,10 @@
     width: calc(100% - 0.4em);
     display: flex;
     flex-direction: column;
-    border-left: #f7f8f8 solid 0.2em;
-    border-top: #f7f8f8 solid 0.2em;
-    border-right: black solid 0.2em;
-    border-bottom: black solid 0.2em;
+    border-left: var(--windows-98-light-border-color) solid 0.2em;
+    border-top: var(--windows-98-light-border-color) solid 0.2em;
+    border-right: var(--windows-98-dark-border-color) solid 0.2em;
+    border-bottom: var(--windows-98-dark-border-color) solid 0.2em;
     padding: 0.2em;
     font-size: 0.8em;
 }
@@ -60,10 +60,10 @@
 
 .application-window-control-box > div {
     background-color: #c0c7c8;
-    border-left: #f7f8f8 solid 0.1em;
-    border-top: #f7f8f8 solid 0.1em;
-    border-right: black solid 0.1em;
-    border-bottom: black solid 0.1em;
+    border-left: var(--windows-98-light-border-color) solid 0.1em;
+    border-top: var(--windows-98-light-border-color) solid 0.1em;
+    border-right: var(--windows-98-dark-border-color) solid 0.1em;
+    border-bottom: var(--windows-98-dark-border-color) solid 0.1em;
     height: 1.5em;
     width: 1.5em;
 }

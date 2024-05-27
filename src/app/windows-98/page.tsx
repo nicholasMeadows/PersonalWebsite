@@ -11,20 +11,29 @@ import Windows98Startup from "@/app/components/windows-98/windows-98-startup";
 import WindowsDesktop from "@/app/components/windows-98/windows-desktop";
 
 export default function Windows98() {
+    const [powerLightOn, setPowerLightOn] = useState(false)
     const [isOn, setIsOn] = useState(false);
     const [screenSaverOn, setScreenSaverOn] = useState(false);
 
+    const [hasBeenTurnedOn, setHasBeenTurnedOn] = useState(false);
     const screenSaverTimeoutRef = useRef<NodeJS.Timeout>();
 
-    const setupScreenSaverTimeout = useCallback(() => {
+    const clearScreenSaverTimeout = useCallback(() => {
+        console.log('clearing timeout')
         const screenSaverTimeout = screenSaverTimeoutRef.current
         if (screenSaverTimeout !== undefined) {
             clearTimeout(screenSaverTimeout);
         }
-        screenSaverTimeoutRef.current = setTimeout(() => {
-            setScreenSaverOn(true);
-        }, 60000);
     }, [])
+    const setupScreenSaverTimeout = useCallback(() => {
+        clearScreenSaverTimeout();
+        if (isOn) {
+            console.log('setting timeout')
+            screenSaverTimeoutRef.current = setTimeout(() => {
+                setScreenSaverOn(true);
+            }, 60000);
+        }
+    }, [clearScreenSaverTimeout, isOn])
 
     useEffect(() => {
         if (isOn) {
@@ -37,11 +46,20 @@ export default function Windows98() {
         setScreenSaverOn(false)
     }, [setupScreenSaverTimeout])
     return <>
-        <div className={`${isOn ? 'fade-out' : ''}`}>
-            <Windows98Startup onEnded={() => setIsOn(true)}/>
+        <div className={`${isOn ? 'fade-out' : hasBeenTurnedOn ? 'fade-in' : ''}`}>
+            <Windows98Startup onEnded={() => {
+                setHasBeenTurnedOn(true);
+                setIsOn(true)
+            }} powerLightOn={powerLightOn}
+                              setPowerLightOn={setPowerLightOn}/>
         </div>
-        <div className={`${isOn ? 'fade-in' : 'hidden'}`} onMouseMove={screenSaverMouseMove}>
-            <WindowsDesktop/>
+        <div className={`${isOn ? 'fade-in' : hasBeenTurnedOn ? 'fade-out' : 'hidden'}`}
+             onMouseMove={screenSaverMouseMove}>
+            <WindowsDesktop onShutDownClick={() => {
+                clearScreenSaverTimeout();
+                setPowerLightOn(false);
+                setIsOn(false)
+            }}/>
         </div>
         <div className={`${screenSaverOn ? '' : 'hidden'}`} onMouseMove={screenSaverMouseMove}>
             <WindowsScreenSaver screenSaverOn={screenSaverOn}/>

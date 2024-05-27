@@ -36,7 +36,6 @@
 }
 
 .power-button {
-    transition: opacity 2s;
     background: #FFFDD0;
     width: 5em;
     height: 5em;
@@ -91,6 +90,18 @@
     width: 100dvw;
     height: 100dvh;
     opacity: 0;
-    transition: opacity 2s;
     z-index: 20;
+}
+
+.startup-video-fade-in {
+    animation: fade-in 2s;
+}
+
+@keyframes fade-in {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
 }
