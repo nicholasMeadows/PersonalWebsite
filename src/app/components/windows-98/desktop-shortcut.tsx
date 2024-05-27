@@ -1,5 +1,5 @@
 'use client'
-import '../css/desktop-shortcut.css'
+import '../../css/desktop-shortcut.css'
 import {MouseEvent} from "react";
 
 type Props = { iconSrc: string; iconTxt: string; onClick?: (event: MouseEvent) => void };

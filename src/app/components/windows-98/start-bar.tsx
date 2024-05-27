@@ -1,4 +1,4 @@
-import "../css/start-bar.css";
+import "../../css/start-bar.css";
 import {useEffect, useState} from "react";
 import {ApplicationWindowModel} from "@/app/windows-98/page";
 

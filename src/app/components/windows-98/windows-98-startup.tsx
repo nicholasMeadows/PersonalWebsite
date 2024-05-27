@@ -1,5 +1,5 @@
 import React, {useRef, useState} from "react";
-import "../css/windows-98-startup.css"
+import "../../css/windows-98-startup.css"
 
 type Props = {
     onEnded: () => void
