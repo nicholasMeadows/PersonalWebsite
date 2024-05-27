@@ -1,6 +1,6 @@
 import '../../css/windows-98-app-window.css'
 import React, {MouseEvent as ReactMouseEvent, ReactNode, useCallback, useEffect, useRef} from "react";
-import {ApplicationWindowModel} from "@/app/windows-98/page";
+import {ApplicationWindowModel} from "@/app/components/windows-98/windows-desktop";
 
 type Props = {
     children: ReactNode,

@@ -1,6 +1,6 @@
 import "../../css/start-bar.css";
 import {useEffect, useState} from "react";
-import {ApplicationWindowModel} from "@/app/windows-98/page";
+import {ApplicationWindowModel} from "@/app/components/windows-98/windows-desktop";
 
 type Props = {
     applicationWindows: Map<String, ApplicationWindowModel>,
