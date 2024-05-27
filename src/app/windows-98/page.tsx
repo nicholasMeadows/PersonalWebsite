@@ -5,7 +5,7 @@ import '../css/home-page.css'
 import '../css/projects.css'
 import '../css/about-me.css'
 import '../css/work-experience.css'
-import {useCallback, useEffect, useRef, useState} from "react";
+import React, {useCallback, useEffect, useRef, useState} from "react";
 import WindowsScreenSaver from "@/app/components/windows-98/windows-screen-saver";
 import Windows98Startup from "@/app/components/windows-98/windows-98-startup";
 import WindowsDesktop from "@/app/components/windows-98/windows-desktop";
@@ -16,19 +16,19 @@ export default function Windows98() {
     const [screenSaverOn, setScreenSaverOn] = useState(false);
 
     const [hasBeenTurnedOn, setHasBeenTurnedOn] = useState(false);
+    const [startMenuOpen, setStartMenuOpen] = useState(false);
     const screenSaverTimeoutRef = useRef<NodeJS.Timeout>();
 
     const clearScreenSaverTimeout = useCallback(() => {
-        console.log('clearing timeout')
         const screenSaverTimeout = screenSaverTimeoutRef.current
         if (screenSaverTimeout !== undefined) {
             clearTimeout(screenSaverTimeout);
         }
     }, [])
+
     const setupScreenSaverTimeout = useCallback(() => {
         clearScreenSaverTimeout();
         if (isOn) {
-            console.log('setting timeout')
             screenSaverTimeoutRef.current = setTimeout(() => {
                 setScreenSaverOn(true);
             }, 60000);
@@ -45,6 +45,7 @@ export default function Windows98() {
         setupScreenSaverTimeout();
         setScreenSaverOn(false)
     }, [setupScreenSaverTimeout])
+
     return <>
         <div className={`${isOn ? 'fade-out' : hasBeenTurnedOn ? 'fade-in' : ''}`}>
             <Windows98Startup onEnded={() => {
@@ -59,7 +60,8 @@ export default function Windows98() {
                 clearScreenSaverTimeout();
                 setPowerLightOn(false);
                 setIsOn(false)
-            }}/>
+            }} startMenuOpen={startMenuOpen}
+                            setStartMenuOpen={setStartMenuOpen}/>
         </div>
         <div className={`${screenSaverOn ? '' : 'hidden'}`} onMouseMove={screenSaverMouseMove}>
             <WindowsScreenSaver screenSaverOn={screenSaverOn}/>

@@ -1,4 +1,5 @@
 .start-bar {
+    --start-menu-btn-height: 2.8em;
     background-color: #c0c7c8;
     width: 100vw;
     height: var(--start-bar-height);
@@ -46,40 +47,49 @@
 }
 
 .start-menu-main {
-    flex-grow: 1;
     display: flex;
+    flex-grow: 1;
     flex-direction: column;
+}
+
+.start-menu-app {
+    display: flex;
+    flex-direction: row;
+    flex-grow: 1;
+    height: var(--start-menu-btn-height);
+    max-height: var(--start-menu-btn-height);
+    padding-left: 0.6em;
     align-items: center;
+    justify-content: flex-start;
+    gap: 0.5em;
+    overflow: hidden;
+    max-width: 90%;
+}
+
+.start-menu-app > img {
+    object-fit: contain;
+    height: var(--start-menu-btn-height);
+    max-width: 2em;
+}
+
+.start-menu-app > p {
+    margin: 0;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
 }
 
 .start-menu-spacer {
     border-top: var(--windows-98-dark-border-color) solid 0.15em;
     border-bottom: var(--windows-98-light-border-color) solid 0.15em;
     width: 95%;
+    align-self: center;
 }
 
 .shutdown-btn-spacer {
     margin-top: auto;
 }
 
-.shutdown-btn-box {
-    height: 2.8em;
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-}
-
-.shutdown-btn-box > img {
-    height: 80%;
-    margin-left: 0.5em;
-    object-fit: contain;
-}
-
-.shutdown-btn-box > p {
-    margin-left: 0.8em;
-    white-space: nowrap;
-}
 
 .task-bar-box {
     margin-top: 0.2em;
@@ -157,11 +167,11 @@
     border-bottom: var(--windows-98-dark-border-color) solid 0.2em;
     border-left: var(--windows-98-light-border-color) solid 0.2em;
     border-top: var(--windows-98-light-border-color) solid 0.2em;
-    padding: 0.2em 0.2em;
     gap: 0.2em;
     max-width: 20%;
     width: 100%;
     overflow: hidden;
+    padding: 0.2em 1em 0.2em 0.2em;
 }
 
 .task-bar-app-box.active {
@@ -188,4 +198,6 @@
 .task-bar-app-box > p {
     margin: 0;
     white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
