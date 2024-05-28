@@ -1,5 +1,5 @@
 import "../../css/start-bar.css";
-import {useEffect, useRef, useState} from "react";
+import {MouseEvent, MutableRefObject, useCallback, useEffect, useRef, useState} from "react";
 import {
     ABOUT_ME_APPLICATION_ICON_URL,
     ABOUT_ME_APPLICATION_NAME,
@@ -12,6 +12,7 @@ import {
 } from "@/app/components/windows-98/windows-desktop";
 
 type Props = {
+    startBarElementRef: MutableRefObject<HTMLDivElement | null>
     applicationWindows: Map<String, ApplicationWindowModel>,
     setIsFocused: (appName: string, isFocused: boolean) => void,
     setIsMinimized: (appName: string, isMinimized: boolean) => void,
@@ -21,16 +22,31 @@ type Props = {
     openMyProjectsPage: () => void,
     openAboutMePage: () => void,
     openIntroPage: () => void,
-    openNanoRacksAndRoboticsPage: () => void
+    openNanoRacksAndRoboticsPage: () => void,
+    startMenuSideSection: StartMenuSideSectionState | undefined,
+    setStartMenuSideSection: (startMenuSideSection: StartMenuSideSectionState | undefined) => void,
+    openWorkExperiencePage: () => void,
+    downloadFullstackEngineerResume: () => void
+}
+const DOCUMENTS_SIDE_SECTION_KEY = "DOCUMENTS";
+export type StartMenuSideSectionState = {
+    sectionKey: string,
+    top: number,
+    left: number
 }
 export default function StartBar({
+                                     startBarElementRef,
                                      applicationWindows,
                                      setIsFocused,
                                      setIsMinimized,
                                      onShutDownClick,
                                      startMenuOpen,
                                      setStartMenuOpen,
-                                     openMyProjectsPage, openAboutMePage, openIntroPage, openNanoRacksAndRoboticsPage
+                                     openMyProjectsPage, openAboutMePage, openIntroPage, openNanoRacksAndRoboticsPage,
+                                     startMenuSideSection,
+                                     setStartMenuSideSection,
+                                     openWorkExperiencePage,
+                                     downloadFullstackEngineerResume
                                  }: Props) {
     const [time, setTime] = useState<string>();
 
@@ -52,39 +68,74 @@ export default function StartBar({
     }, []);
     const startMenuMainDivRef = useRef<HTMLDivElement>(null)
 
-    return <div className={'start-bar'} onMouseDown={(event) => {
-        event.stopPropagation();
-        event.preventDefault()
-    }}>
+    const openStartMenuSideSection = useCallback((event: MouseEvent, sectionKey: string) => {
+        if (startMenuSideSection !== undefined && startMenuSideSection.sectionKey === sectionKey) {
+            return;
+        }
+        const startMenuBtn = event.currentTarget as HTMLElement;
+        const btnRect = startMenuBtn.getBoundingClientRect();
+        setStartMenuSideSection({
+            sectionKey: sectionKey,
+            top: btnRect.top,
+            left: btnRect.right
+        })
+    }, [setStartMenuSideSection, startMenuSideSection]);
+
+    return <div className={'start-bar'} ref={startBarElementRef}>
         {startMenuOpen &&
-            <div className={'start-menu'}>
-                <div className={'windows-side-bar'}>
-                    <p>Windows 98</p>
+            <>
+                <div className={'start-menu'}>
+                    <div className={'windows-side-bar'}>
+                        <p>Windows 98</p>
+                    </div>
+                    <div className={'start-menu-main'} ref={startMenuMainDivRef}>
+                        <div className={'start-menu-app'} onClick={openIntroPage}>
+                            <img src={INTRO_APPLICATION_ICON_URL}/>
+                            <p>Intro</p>
+                        </div>
+                        <div className={'start-menu-app'} onClick={openAboutMePage}>
+                            <img src={ABOUT_ME_APPLICATION_ICON_URL}/>
+                            <p>{ABOUT_ME_APPLICATION_NAME}</p>
+                        </div>
+                        <div className={'start-menu-app'} onClick={openNanoRacksAndRoboticsPage}>
+                            <img src={NANO_RACKS_AND_ROBOTICS_APPLICATION_ICON_URL}/>
+                            <p>{NANO_RACKS_AND_ROBOTICS_APPLICATION_NAME}</p>
+                        </div>
+                        <div className={'start-menu-app'} onClick={openMyProjectsPage}>
+                            <img src={MY_PROJECTS_APPLICATION_ICON_URL}/>
+                            <p>{MY_PROJECTS_APPLICATION_NAME}</p>
+                        </div>
+                        <div className={'start-menu-app'}
+                             onClick={(event) => openStartMenuSideSection(event, DOCUMENTS_SIDE_SECTION_KEY)}>
+                            <img src="windows-icons/directory_open_file_mydocs_2k-4.png"/>
+                            <p>Documents</p>
+                            <img src={"right-black-triangle.png"} className={'start-menu-app-arrow'}/>
+                        </div>
+                        <div className={'start-menu-spacer shutdown-btn-spacer'}></div>
+                        <div className={'start-menu-app'} onClick={() => onShutDownClick()}>
+                            <img src={'windows-icons/shut_down_with_computer-0.png'}/>
+                            <p>Shut Down...</p>
+                        </div>
+                    </div>
                 </div>
-                <div className={'start-menu-main'} ref={startMenuMainDivRef}>
-                    <div className={'start-menu-app'} onClick={openIntroPage}>
-                        <img src={INTRO_APPLICATION_ICON_URL}/>
-                        <p>Intro</p>
+                {startMenuSideSection !== undefined && startMenuSideSection.sectionKey === DOCUMENTS_SIDE_SECTION_KEY &&
+                    <div className={'side-section-container'} style={{
+                        top: `${startMenuSideSection.top}px`,
+                        left: `calc(1em + ${startMenuSideSection.left}px)`
+                    }}>
+                        <div className={'start-menu-documents-side-section'}>
+                            <div className={'start-menu-app'} onClick={downloadFullstackEngineerResume}>
+                                <img src={'windows-icons/document-0.png'}/>
+                                <p>Fullstack Developer Resume</p>
+                            </div>
+                            <div className={'start-menu-app'} onClick={openWorkExperiencePage}>
+                                <img src={'windows-icons/document-0.png'}/>
+                                <p>Work Experience</p>
+                            </div>
+                        </div>
                     </div>
-                    <div className={'start-menu-app'} onClick={openAboutMePage}>
-                        <img src={ABOUT_ME_APPLICATION_ICON_URL}/>
-                        <p>{ABOUT_ME_APPLICATION_NAME}</p>
-                    </div>
-                    <div className={'start-menu-app'} onClick={openNanoRacksAndRoboticsPage}>
-                        <img src={NANO_RACKS_AND_ROBOTICS_APPLICATION_ICON_URL}/>
-                        <p>{NANO_RACKS_AND_ROBOTICS_APPLICATION_NAME}</p>
-                    </div>
-                    <div className={'start-menu-app'} onClick={openMyProjectsPage}>
-                        <img src={MY_PROJECTS_APPLICATION_ICON_URL}/>
-                        <p>{MY_PROJECTS_APPLICATION_NAME}</p>
-                    </div>
-                    <div className={'start-menu-spacer shutdown-btn-spacer'}></div>
-                    <div className={'start-menu-app'} onClick={() => onShutDownClick()}>
-                        <img src={'windows-icons/shut_down_with_computer-0.png'}/>
-                        <p>Shut Down...</p>
-                    </div>
-                </div>
-            </div>
+                }
+            </>
         }
 
         <div className={'task-bar-box start-button'} onClick={() => setStartMenuOpen(!startMenuOpen)}>

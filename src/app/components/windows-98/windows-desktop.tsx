@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useRef} from "react";
+import React, {useCallback, useEffect, useRef, useState} from "react";
 import DesktopShortcut from "@/app/components/windows-98/desktop-shortcut";
 import Windows98AppWindow from "@/app/components/windows-98/windows-98-app-window";
 import Home from "@/app/personal-website/home-page/page";
@@ -6,7 +6,7 @@ import AboutMe from "@/app/personal-website/about-me/page";
 import Projects from "@/app/personal-website/projects/page";
 import WorkExperience from "@/app/personal-website/work-experience/page";
 import NanoRacksAndRobotics from "@/app/personal-website/nanoracks-and-robotics/page";
-import StartBar from "@/app/components/windows-98/start-bar";
+import StartBar, {StartMenuSideSectionState} from "@/app/components/windows-98/start-bar";
 import '../../css/windows-desktop.css'
 import useWindows98Windows from "@/app/hooks/use-windows-98-windows";
 
@@ -43,6 +43,8 @@ export default function WindowsDesktop({
                                            setStartMenuOpen
                                        }: Props) {
     const mouseClickSoundEffectAudioRef = useRef<HTMLAudioElement>(null)
+    const [startMenuSideSection, setStartMenuSideSection] = useState<StartMenuSideSectionState | undefined>();
+
     const playMouseClickSoundEffect = useCallback(() => {
         const mouseCLickSoundEffectAudio = mouseClickSoundEffectAudioRef.current;
         if (mouseCLickSoundEffectAudio !== null) {
@@ -65,59 +67,89 @@ export default function WindowsDesktop({
 
     const openGithub = useCallback(() => {
         window.open('https://github.com/nicholasMeadows', "_blank")
-    }, [])
+        setStartMenuOpen(false);
+        setStartMenuSideSection(undefined);
+    }, [setStartMenuOpen])
 
     const openLinkedin = useCallback(() => {
         window.open('https://www.linkedin.com/in/nicholasmeadows/', "_blank")
-    }, [])
+        setStartMenuOpen(false);
+        setStartMenuSideSection(undefined);
+    }, [setStartMenuOpen])
 
     const openIntroPage = useCallback(() => {
         setStartMenuOpen(false);
         openWindow(INTRO_APPLICATION_NAME, INTRO_APPLICATION_ICON_URL)
         setIsFocused(INTRO_APPLICATION_NAME, true);
+        setStartMenuSideSection(undefined);
     }, [openWindow, setIsFocused, setStartMenuOpen])
 
     const openAboutMePage = useCallback(() => {
         setStartMenuOpen(false);
         openWindow(ABOUT_ME_APPLICATION_NAME, ABOUT_ME_APPLICATION_ICON_URL)
         setIsFocused(ABOUT_ME_APPLICATION_NAME, true);
+        setStartMenuSideSection(undefined);
     }, [openWindow, setIsFocused, setStartMenuOpen]);
+
+    const downloadFile = useCallback((path: string, name: string) => {
+        const aElement = document.createElement('a');
+        aElement.setAttribute('download', name);
+        aElement.href = path;
+        aElement.setAttribute('target', '_blank');
+        aElement.click();
+    }, [])
+
+    const downloadFullstackEngineerResume = useCallback(() => {
+        downloadFile('/resume/Fullstack Engineer Resume.pdf', 'Fullstack Engineer Resume.pdf');
+        setStartMenuOpen(false);
+        setStartMenuSideSection(undefined);
+    }, [downloadFile, setStartMenuOpen]);
 
     const openMyProjectsPage = useCallback(() => {
         setStartMenuOpen(false);
         openWindow(MY_PROJECTS_APPLICATION_NAME, MY_PROJECTS_APPLICATION_ICON_URL)
         setIsFocused(MY_PROJECTS_APPLICATION_NAME, true);
+        setStartMenuSideSection(undefined);
     }, [openWindow, setIsFocused, setStartMenuOpen]);
 
     const openWorkExperiencePage = useCallback(() => {
         setStartMenuOpen(false);
         openWindow(WORK_EXPERIENCE_APPLICATION_NAME, WORK_EXPERIENCE_APPLICATION_ICON_URL)
         setIsFocused(WORK_EXPERIENCE_APPLICATION_NAME, true);
+        setStartMenuSideSection(undefined);
     }, [openWindow, setIsFocused, setStartMenuOpen]);
 
     const openNanoRacksAndRoboticsPage = useCallback(() => {
         setStartMenuOpen(false);
         openWindow(NANO_RACKS_AND_ROBOTICS_APPLICATION_NAME, NANO_RACKS_AND_ROBOTICS_APPLICATION_ICON_URL)
         setIsFocused(NANO_RACKS_AND_ROBOTICS_APPLICATION_NAME, true);
+        setStartMenuSideSection(undefined);
     }, [openWindow, setIsFocused, setStartMenuOpen]);
 
     useEffect(() => {
         openIntroPage();
     }, []);
 
-    return <div className={'desktop'} onMouseDown={() => setStartMenuOpen(false)}>
+    const startBarElementRef = useRef<HTMLDivElement>(null)
+    return <div className={'desktop'} onMouseDown={(event) => {
+        const startBarElement = startBarElementRef.current;
+        console.log(startBarElement)
+        if (startBarElement === null) {
+            return;
+        }
+        if (!startBarElement.contains(event.target as HTMLElement)) {
+            setStartMenuOpen(false)
+            setStartMenuSideSection(undefined)
+        }
+    }}>
         <audio src={'mouse-click-sound-effect.mp3'} ref={mouseClickSoundEffectAudioRef}/>
         <div className={'desktop-icons'}>
             <DesktopShortcut iconSrc={INTRO_APPLICATION_ICON_URL} iconTxt={'Intro'} onClick={openIntroPage}/>
             <DesktopShortcut iconSrc={ABOUT_ME_APPLICATION_ICON_URL} iconTxt={'About-Me'}
                              onClick={openAboutMePage}/>
-            <a href={"/resume/Fullstack Engineer Resume.pdf"} target={'_blank'} style={{
-                color: 'inherit',
-                textDecoration: 'inherit'
-            }}>
-                <DesktopShortcut iconSrc={'windows-icons/document-0.png'}
-                                 iconTxt={'Fullstack Developer Resume'}/>
-            </a>
+            <DesktopShortcut iconSrc={'windows-icons/document-0.png'}
+                             iconTxt={'Fullstack Developer Resume'}
+                             onClick={downloadFullstackEngineerResume}/>
             <DesktopShortcut iconSrc={WORK_EXPERIENCE_APPLICATION_ICON_URL} iconTxt={'Work Experience'}
                              onClick={openWorkExperiencePage}/>
             <DesktopShortcut iconSrc={NANO_RACKS_AND_ROBOTICS_APPLICATION_ICON_URL}
@@ -178,10 +210,18 @@ export default function WindowsDesktop({
                 <NanoRacksAndRobotics/>
             </Windows98AppWindow>
         }
-        <StartBar applicationWindows={applicationWindows} setIsMinimized={setIsMinimized}
+        <StartBar startBarElementRef={startBarElementRef} applicationWindows={applicationWindows}
+                  setIsMinimized={setIsMinimized}
                   setIsFocused={setIsFocused} onShutDownClick={onShutDownClick}
-                  startMenuOpen={startMenuOpen} setStartMenuOpen={setStartMenuOpen}
+                  startMenuOpen={startMenuOpen} setStartMenuOpen={(isOpen: boolean) => {
+            playMouseClickSoundEffect();
+            setStartMenuOpen(isOpen)
+        }}
                   openNanoRacksAndRoboticsPage={openNanoRacksAndRoboticsPage} openIntroPage={openIntroPage}
-                  openAboutMePage={openAboutMePage} openMyProjectsPage={openMyProjectsPage}></StartBar>
+                  openAboutMePage={openAboutMePage} openMyProjectsPage={openMyProjectsPage}
+                  startMenuSideSection={startMenuSideSection}
+                  setStartMenuSideSection={setStartMenuSideSection}
+                  openWorkExperiencePage={openWorkExperiencePage}
+                  downloadFullstackEngineerResume={downloadFullstackEngineerResume}></StartBar>
     </div>
 }

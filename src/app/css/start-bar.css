@@ -17,6 +17,7 @@
     left: 0.4em;
     bottom: var(--start-bar-height);
     min-width: 30%;
+    max-width: 36%;
     height: 500px;
     background-color: #c0c7c8;
     border-left: var(--windows-98-light-border-color) solid 0.2em;
@@ -50,6 +51,7 @@
     display: flex;
     flex-grow: 1;
     flex-direction: column;
+    overflow: hidden;
 }
 
 .start-menu-app {
@@ -63,7 +65,7 @@
     justify-content: flex-start;
     gap: 0.5em;
     overflow: hidden;
-    max-width: 90%;
+    margin-right: 1em;
 }
 
 .start-menu-app > img {
@@ -114,7 +116,6 @@
     border-top: var(--windows-98-dark-border-color) solid 0.2em;
     border-right: var(--windows-98-light-border-color) solid 0.2em;
     border-bottom: var(--windows-98-light-border-color) solid 0.2em;
-
 }
 
 .start-button > img {
@@ -200,4 +201,27 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+}
+
+.start-menu-app-arrow {
+    margin-left: auto;
+    height: 30% !important;
+    margin-top: 0.2em;
+}
+
+.start-menu-documents-side-section {
+    background-color: #c0c7c8;
+    border-left: var(--windows-98-light-border-color) solid 0.2em;
+    border-top: var(--windows-98-light-border-color) solid 0.2em;
+    border-right: var(--windows-98-dark-border-color) solid 0.2em;
+    border-bottom: var(--windows-98-dark-border-color) solid 0.2em;
+    overflow: scroll;
+    position: relative;
+    max-height: 100%;
+}
+
+.side-section-container {
+    width: 300px;
+    position: absolute;
+    bottom: calc(var(--start-menu-btn-height) + var(--start-bar-border-top-width));
 }
