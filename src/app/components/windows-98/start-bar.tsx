@@ -90,30 +90,30 @@ export default function StartBar({
                     </div>
                     <div className={'start-menu-main'} ref={startMenuMainDivRef}>
                         <div className={'start-menu-app'} onClick={openIntroPage}>
-                            <img src={INTRO_APPLICATION_ICON_URL}/>
+                            <img src={INTRO_APPLICATION_ICON_URL} alt={''}/>
                             <p>Intro</p>
                         </div>
                         <div className={'start-menu-app'} onClick={openAboutMePage}>
-                            <img src={ABOUT_ME_APPLICATION_ICON_URL}/>
+                            <img src={ABOUT_ME_APPLICATION_ICON_URL} alt={''}/>
                             <p>{ABOUT_ME_APPLICATION_NAME}</p>
                         </div>
                         <div className={'start-menu-app'} onClick={openNanoRacksAndRoboticsPage}>
-                            <img src={NANO_RACKS_AND_ROBOTICS_APPLICATION_ICON_URL}/>
+                            <img src={NANO_RACKS_AND_ROBOTICS_APPLICATION_ICON_URL} alt={''}/>
                             <p>{NANO_RACKS_AND_ROBOTICS_APPLICATION_NAME}</p>
                         </div>
                         <div className={'start-menu-app'} onClick={openMyProjectsPage}>
-                            <img src={MY_PROJECTS_APPLICATION_ICON_URL}/>
+                            <img src={MY_PROJECTS_APPLICATION_ICON_URL} alt={''}/>
                             <p>{MY_PROJECTS_APPLICATION_NAME}</p>
                         </div>
                         <div className={'start-menu-app'}
                              onClick={(event) => openStartMenuSideSection(event, DOCUMENTS_SIDE_SECTION_KEY)}>
-                            <img src="windows-icons/directory_open_file_mydocs_2k-4.png"/>
+                            <img src={"windows-icons/directory_open_file_mydocs_2k-4.png"} alt={''}/>
                             <p>Documents</p>
-                            <img src={"right-black-triangle.png"} className={'start-menu-app-arrow'}/>
+                            <img src={"right-black-triangle.png"} className={'start-menu-app-arrow'} alt={''}/>
                         </div>
                         <div className={'start-menu-spacer shutdown-btn-spacer'}></div>
                         <div className={'start-menu-app'} onClick={() => onShutDownClick()}>
-                            <img src={'windows-icons/shut_down_with_computer-0.png'}/>
+                            <img src={'windows-icons/shut_down_with_computer-0.png'} alt={''}/>
                             <p>Shut Down...</p>
                         </div>
                     </div>
@@ -125,11 +125,11 @@ export default function StartBar({
                     }}>
                         <div className={'start-menu-documents-side-section'}>
                             <div className={'start-menu-app'} onClick={downloadFullstackEngineerResume}>
-                                <img src={'windows-icons/document-0.png'}/>
+                                <img src={'windows-icons/document-0.png'} alt={''}/>
                                 <p>Fullstack Developer Resume</p>
                             </div>
                             <div className={'start-menu-app'} onClick={openWorkExperiencePage}>
-                                <img src={'windows-icons/document-0.png'}/>
+                                <img src={'windows-icons/document-0.png'} alt={''}/>
                                 <p>Work Experience</p>
                             </div>
                         </div>
