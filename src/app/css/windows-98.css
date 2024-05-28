@@ -1,0 +1,49 @@
+@font-face {
+    font-family: "Sans Nouveaux";
+    src: url("/px_sans_nouveaux.ttf")
+}
+
+body {
+    margin: 0;
+    overflow: hidden;
+    --windows-98-dark-border-color: #808080;
+    --windows-98-light-border-color: #ffffff;
+}
+
+html * {
+    font-family: "Sans Nouveaux";
+}
+
+.hidden {
+    opacity: 0;
+    display: none;
+}
+
+.fade-out {
+    animation: fade-out 3s;
+    animation-fill-mode: forwards;
+}
+
+.fade-in {
+    animation: fade-in 3s;
+}
+
+@keyframes fade-out {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+        display: none;
+    }
+}
+
+@keyframes fade-in {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+        display: unset;
+    }
+}

@@ -1,0 +1,235 @@
+.window {
+    position: absolute;
+    background-color: #c0c7c8;
+    height: calc(100% - 0.4em);
+    width: calc(100% - 0.4em);
+    display: flex;
+    flex-direction: column;
+    border-left: var(--windows-98-light-border-color) solid 0.2em;
+    border-top: var(--windows-98-light-border-color) solid 0.2em;
+    border-right: var(--windows-98-dark-border-color) solid 0.2em;
+    border-bottom: var(--windows-98-dark-border-color) solid 0.2em;
+    padding: 0.2em;
+    font-size: 0.8em;
+}
+
+.window-maximized {
+    border-left: unset;
+    border-top: unset;
+    border-right: unset;
+    border-bottom: unset;
+    padding: 0;
+}
+
+.window-header {
+    background-color: #0000a8;
+    width: 100%;
+    height: 1.8em;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding-top: 0.2em;
+    padding-bottom: 0.2em;
+    cursor: default;
+}
+
+.window-header.not-focused {
+    background-color: #87888f;
+}
+
+.application-icon {
+    margin-left: 0.15em;
+    object-fit: contain;
+    height: 100%;
+}
+
+.application-name {
+    color: #ffffff;
+    font-size: 0.8em;
+    margin-left: 0.5em;
+}
+
+.application-window-control-box {
+    display: flex;
+    height: 100%;
+    margin-left: auto;
+    margin-right: 0.3em;
+    align-items: center;
+    gap: 0.3em;
+}
+
+.application-window-control-box > div {
+    background-color: #c0c7c8;
+    border-left: var(--windows-98-light-border-color) solid 0.1em;
+    border-top: var(--windows-98-light-border-color) solid 0.1em;
+    border-right: var(--windows-98-dark-border-color) solid 0.1em;
+    border-bottom: var(--windows-98-dark-border-color) solid 0.1em;
+    height: 1.5em;
+    width: 1.5em;
+}
+
+.close-button:after {
+    display: inline-block;
+    content: "\00d7"; /* This will render the 'X' */
+    font-size: 1.2em;
+    position: relative;
+    top: -0.45em;
+    margin-left: 0.3em;
+    margin-right: 0.2em;
+}
+
+.maximize-button > div {
+    border-color: black;
+    border-style: solid;
+    border-left-width: 0.1em;
+    border-bottom-width: 0.1em;
+    width: 50%;
+    height: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+    top: 50%;
+    transform: translate(0, -50%);
+}
+
+.windowed-button {
+    position: relative;
+}
+
+.windowed-button > div {
+    position: relative;
+    top: 50%;
+    left: 46%;
+    transform: translate(-50%, -50%);
+    width: 70%;
+    height: 70%;
+}
+
+.windowed-button > div > div {
+    width: 48%;
+    height: 48%;
+    border-color: black;
+    border-style: solid;
+    border-right-width: 0.18em;
+    border-top-width: 0.18em;
+    border-left-width: 0.1em;
+    border-bottom-width: 0.1em;
+    position: absolute;
+    background-color: #c0c7c8;
+}
+
+.windowed-button > div > div:first-child {
+    top: 0;
+    right: 0;
+}
+
+.windowed-button > div > div:last-child {
+    left: 0;
+    bottom: 0;
+}
+
+.minimize-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.minimize-button > div {
+    border-color: black;
+    border-style: solid;
+    border-width: 0 0 0.2em 0;
+    width: 70%;
+    height: 50%;
+    margin-left: -0.1em;
+}
+
+.children-div {
+    background-color: white;
+    overflow: scroll;
+    padding: 1em;
+    height: 100%;
+}
+
+.resizer {
+    position: absolute;
+}
+
+.resizer-top {
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 1em;
+    transform: translate(0, -50%);
+    cursor: ns-resize;
+    z-index: 5;
+}
+
+.resizer-right {
+    top: 0;
+    right: 0;
+    width: 1em;
+    height: 100%;
+    transform: translate(50%, 0);
+    cursor: ew-resize;
+    z-index: 5;
+}
+
+.resizer-bottom {
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 1em;
+    transform: translate(0, 50%);
+    cursor: ns-resize;
+    z-index: 5;
+}
+
+.resizer-left {
+    top: 0;
+    left: 0;
+    width: 1em;
+    height: 100%;
+    transform: translate(-50%, 0);
+    cursor: ew-resize;
+    z-index: 5;
+}
+
+.resizer-top-left {
+    width: 2em;
+    height: 2em;
+    top: 0;
+    left: 0;
+    transform: translate(-50%, -50%);
+    cursor: nwse-resize;
+    z-index: 10;
+}
+
+.resizer-top-right {
+    width: 2em;
+    height: 2em;
+    top: 0;
+    right: 0;
+    transform: translate(50%, -50%);
+    cursor: nesw-resize;
+    z-index: 10;
+}
+
+.resizer-bottom-right {
+    width: 2em;
+    height: 2em;
+    bottom: 0;
+    right: 0;
+    transform: translate(50%, 50%);
+    cursor: nwse-resize;
+    z-index: 10;
+}
+
+.resizer-bottom-left {
+    width: 2em;
+    height: 2em;
+    bottom: 0;
+    left: 0;
+    transform: translate(-50%, 50%);
+    cursor: nesw-resize;
+    z-index: 10;
+}

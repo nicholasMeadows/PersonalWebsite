@@ -1,0 +1,24 @@
+.desktop-shortcut {
+    display: flex;
+    flex-direction: column;
+    width: 7em;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    cursor: pointer;
+}
+
+.desktop-shortcut > img {
+    object-fit: contain;
+    position: relative;
+    width: 3em;
+    height: 3em;
+}
+
+.desktop-shortcut > p {
+    font-size: 0.8em;
+    color: white;
+    margin: 0;
+    width: 100%;
+    text-align: center;
+}

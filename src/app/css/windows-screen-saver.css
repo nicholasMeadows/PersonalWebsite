@@ -1,0 +1,14 @@
+.screen-saver {
+    width: 100dvw;
+    height: 100dvh;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: black;
+    z-index: 1000;
+}
+
+.screen-saver > video {
+    width: 100dvw;
+    height: 100dvh;
+}
