@@ -133,7 +133,6 @@ export default function WindowsDesktop({
     const startBarElementRef = useRef<HTMLDivElement>(null)
     return <div className={'desktop'} onMouseDown={(event) => {
         const startBarElement = startBarElementRef.current;
-        console.log(startBarElement)
         if (startBarElement === null) {
             return;
         }
