@@ -156,7 +156,6 @@ export default function StartBar() {
             })}
         </div>
         <div className={'task-bar-box system-tray'}>
-            <img src={'windows-icons/sched_tasks.png'} alt={''}/>
             <img src={`${isMuted ? 'windows-icons/loudspeaker_muted-0.png' : 'windows-icons/loudspeaker_rays-0.png'}`}
                  alt={''} onClick={() => setIsMuted(!isMuted)}/>
             <p>{time}</p>
