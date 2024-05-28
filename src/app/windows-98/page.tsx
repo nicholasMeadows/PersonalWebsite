@@ -46,21 +46,25 @@ export default function Windows98() {
         setScreenSaverOn(false)
     }, [setupScreenSaverTimeout])
 
+    const onWindows98StartupEnded = useCallback(() => {
+        setHasBeenTurnedOn(true);
+        setIsOn(true)
+    }, [])
+
+    const onWindows98ShutdownCLicked = useCallback(() => {
+        clearScreenSaverTimeout();
+        setPowerLightOn(false);
+        setIsOn(false)
+    }, [clearScreenSaverTimeout])
+    
     return <>
         <div className={`${isOn ? 'fade-out' : hasBeenTurnedOn ? 'fade-in' : ''}`}>
-            <Windows98Startup onEnded={() => {
-                setHasBeenTurnedOn(true);
-                setIsOn(true)
-            }} powerLightOn={powerLightOn}
+            <Windows98Startup onEnded={onWindows98StartupEnded} powerLightOn={powerLightOn}
                               setPowerLightOn={setPowerLightOn}/>
         </div>
         <div className={`${isOn ? 'fade-in' : hasBeenTurnedOn ? 'fade-out' : 'hidden'}`}
              onMouseMove={screenSaverMouseMove}>
-            <WindowsDesktop onShutDownClick={() => {
-                clearScreenSaverTimeout();
-                setPowerLightOn(false);
-                setIsOn(false)
-            }} startMenuOpen={startMenuOpen}
+            <WindowsDesktop onShutDownClick={onWindows98ShutdownCLicked} startMenuOpen={startMenuOpen}
                             setStartMenuOpen={setStartMenuOpen}/>
         </div>
         <div className={`${screenSaverOn ? '' : 'hidden'}`} onMouseMove={screenSaverMouseMove}>

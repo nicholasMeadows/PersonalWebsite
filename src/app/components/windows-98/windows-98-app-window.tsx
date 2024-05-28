@@ -1,26 +1,20 @@
 import '../../css/windows-98-app-window.css'
-import React, {MouseEvent as ReactMouseEvent, ReactNode, useCallback, useEffect, useRef} from "react";
-import {ApplicationWindowModel} from "@/app/components/windows-98/windows-desktop";
+import React, {MouseEvent as ReactMouseEvent, ReactNode, useCallback, useContext, useEffect, useRef} from "react";
+import Windows98AppWindowContext from "@/app/context/windows-98-app-window-context";
 
 type Props = {
-    children: ReactNode,
-    appWindowModel: ApplicationWindowModel,
-    setIsFocused: (appName: string, isFocused: boolean) => void,
-    setIsMaximized: (appName: string, isMaximized: boolean) => void,
-    setIsMinimized: (appName: string, isMinimized: boolean) => void,
-    closeWindow: (appName: string) => void,
-    setPosition: (appName: string, position: { top: number, left: number }) => void
-    setSize: (appName: string, size: { width: number, height: number }) => void
+    children: ReactNode
 }
-export default function Windows98AppWindow({
-                                               children,
-                                               appWindowModel,
-                                               setIsFocused,
-                                               setIsMinimized,
-                                               setIsMaximized,
-                                               closeWindow,
-                                               setPosition, setSize
-                                           }: Props) {
+export default function Windows98AppWindow({children}: Props) {
+    const {
+        appWindowModel,
+        closeWindow,
+        setPosition,
+        setSize,
+        setIsMaximized,
+        setIsMinimized,
+        setIsFocused
+    } = useContext(Windows98AppWindowContext);
     const windowDivRef = useRef<HTMLDivElement>(null);
     const windowHeaderMouseOffset = useRef({x: 0, y: 0})
     const mouseDownOnWindowHeader = useRef(false);

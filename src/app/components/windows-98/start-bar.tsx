@@ -1,57 +1,43 @@
 import "../../css/start-bar.css";
-import {MouseEvent, MutableRefObject, useCallback, useEffect, useRef, useState} from "react";
+import {MouseEvent, useCallback, useContext, useEffect, useRef, useState} from "react";
 import {
     ABOUT_ME_APPLICATION_ICON_URL,
     ABOUT_ME_APPLICATION_NAME,
-    ApplicationWindowModel,
     INTRO_APPLICATION_ICON_URL,
     MY_PROJECTS_APPLICATION_ICON_URL,
     MY_PROJECTS_APPLICATION_NAME,
     NANO_RACKS_AND_ROBOTICS_APPLICATION_ICON_URL,
     NANO_RACKS_AND_ROBOTICS_APPLICATION_NAME
 } from "@/app/components/windows-98/windows-desktop";
+import Windows98StartBarContext from "@/app/context/windows-98-start-bar-context";
 
-type Props = {
-    startBarElementRef: MutableRefObject<HTMLDivElement | null>
-    applicationWindows: Map<String, ApplicationWindowModel>,
-    setIsFocused: (appName: string, isFocused: boolean) => void,
-    setIsMinimized: (appName: string, isMinimized: boolean) => void,
-    onShutDownClick: () => void,
-    startMenuOpen: boolean,
-    setStartMenuOpen: (startMenuOpen: boolean) => void
-    openMyProjectsPage: () => void,
-    openAboutMePage: () => void,
-    openIntroPage: () => void,
-    openNanoRacksAndRoboticsPage: () => void,
-    startMenuSideSection: StartMenuSideSectionState | undefined,
-    setStartMenuSideSection: (startMenuSideSection: StartMenuSideSectionState | undefined) => void,
-    openWorkExperiencePage: () => void,
-    downloadFullstackEngineerResume: () => void,
-    isMuted: boolean,
-    setIsMuted: (isMuted: boolean) => void
-}
 const DOCUMENTS_SIDE_SECTION_KEY = "DOCUMENTS";
 export type StartMenuSideSectionState = {
     sectionKey: string,
     top: number,
     left: number
 }
-export default function StartBar({
-                                     startBarElementRef,
-                                     applicationWindows,
-                                     setIsFocused,
-                                     setIsMinimized,
-                                     onShutDownClick,
-                                     startMenuOpen,
-                                     setStartMenuOpen,
-                                     openMyProjectsPage, openAboutMePage, openIntroPage, openNanoRacksAndRoboticsPage,
-                                     startMenuSideSection,
-                                     setStartMenuSideSection,
-                                     openWorkExperiencePage,
-                                     downloadFullstackEngineerResume,
-                                     isMuted,
-                                     setIsMuted
-                                 }: Props) {
+export default function StartBar() {
+    const {
+        downloadFullstackEngineerResume,
+        startBarElementRef,
+        startMenuSideSection,
+        setStartMenuSideSection,
+        setStartMenuOpen,
+        startMenuOpen,
+        isMuted,
+        setIsMuted,
+        setIsFocused,
+        setIsMinimized,
+        openAboutMePage,
+        openMyProjectsPage,
+        openIntroPage,
+        openWorkExperiencePage,
+        openNanoRacksAndRoboticsPage,
+        applicationWindows,
+        onShutDownClick
+    } = useContext(Windows98StartBarContext);
+
     const [time, setTime] = useState<string>();
 
     useEffect(() => {

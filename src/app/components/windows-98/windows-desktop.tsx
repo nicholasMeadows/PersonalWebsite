@@ -9,6 +9,8 @@ import NanoRacksAndRobotics from "@/app/personal-website/nanoracks-and-robotics/
 import StartBar, {StartMenuSideSectionState} from "@/app/components/windows-98/start-bar";
 import '../../css/windows-desktop.css'
 import useWindows98Windows from "@/app/hooks/use-windows-98-windows";
+import Windows98AppWindowContext from "@/app/context/windows-98-app-window-context";
+import Windows98StartBarContext from "@/app/context/windows-98-start-bar-context";
 
 export const INTRO_APPLICATION_NAME = "Nicholas Meadows"
 export const INTRO_APPLICATION_ICON_URL = "nicholas-picture-1.png"
@@ -163,68 +165,112 @@ export default function WindowsDesktop({
         </div>
 
         {applicationWindows.get(INTRO_APPLICATION_NAME) !== undefined &&
-            // @ts-ignore
-            <Windows98AppWindow appWindowModel={applicationWindows.get(INTRO_APPLICATION_NAME)}
-                                setIsFocused={setIsFocused} setIsMinimized={setIsMinimized}
-                                setIsMaximized={setIsMaximized} closeWindow={closeWindow}
-                                setPosition={setPosition} setSize={setSize}>
-                <Home/>
-            </Windows98AppWindow>
+            <Windows98AppWindowContext.Provider value={{
+                // @ts-ignore
+                appWindowModel: applicationWindows.get(INTRO_APPLICATION_NAME),
+                setIsFocused: setIsFocused,
+                setIsMinimized: setIsMinimized,
+                setIsMaximized: setIsMaximized,
+                closeWindow: closeWindow,
+                setPosition: setPosition,
+                setSize: setSize
+            }}>
+                <Windows98AppWindow>
+                    <Home/>
+                </Windows98AppWindow>
+            </Windows98AppWindowContext.Provider>
         }
 
         {applicationWindows.get(ABOUT_ME_APPLICATION_NAME) !== undefined &&
-            // @ts-ignore
-            <Windows98AppWindow appWindowModel={applicationWindows.get(ABOUT_ME_APPLICATION_NAME)}
-                                setIsFocused={setIsFocused} setIsMinimized={setIsMinimized}
-                                setIsMaximized={setIsMaximized} closeWindow={closeWindow}
-                                setPosition={setPosition} setSize={setSize}>
-                <AboutMe/>
-            </Windows98AppWindow>
+            <Windows98AppWindowContext.Provider value={{
+                // @ts-ignore
+                appWindowModel: applicationWindows.get(ABOUT_ME_APPLICATION_NAME),
+                setIsFocused: setIsFocused,
+                setIsMinimized: setIsMinimized,
+                setIsMaximized: setIsMaximized,
+                closeWindow: closeWindow,
+                setPosition: setPosition,
+                setSize: setSize
+            }}>
+                <Windows98AppWindow>
+                    <AboutMe/>
+                </Windows98AppWindow>
+            </Windows98AppWindowContext.Provider>
         }
         {applicationWindows.get(MY_PROJECTS_APPLICATION_NAME) !== undefined &&
-            // @ts-ignore
-            <Windows98AppWindow appWindowModel={applicationWindows.get(MY_PROJECTS_APPLICATION_NAME)}
-                                setIsFocused={setIsFocused} setIsMinimized={setIsMinimized}
-                                setIsMaximized={setIsMaximized} closeWindow={closeWindow}
-                                setPosition={setPosition} setSize={setSize}>
-                <Projects/>
-            </Windows98AppWindow>
+            <Windows98AppWindowContext.Provider value={{
+                // @ts-ignore
+                appWindowModel: applicationWindows.get(MY_PROJECTS_APPLICATION_NAME),
+                setIsFocused: setIsFocused,
+                setIsMinimized: setIsMinimized,
+                setIsMaximized: setIsMaximized,
+                closeWindow: closeWindow,
+                setPosition: setPosition,
+                setSize: setSize
+            }}>
+                <Windows98AppWindow>
+                    <Projects/>
+                </Windows98AppWindow>
+            </Windows98AppWindowContext.Provider>
         }
 
         {applicationWindows.get(WORK_EXPERIENCE_APPLICATION_NAME) !== undefined &&
-            // @ts-ignore
-            <Windows98AppWindow appWindowModel={applicationWindows.get(WORK_EXPERIENCE_APPLICATION_NAME)}
-                                setIsFocused={setIsFocused} setIsMinimized={setIsMinimized}
-                                setIsMaximized={setIsMaximized} closeWindow={closeWindow}
-                                setPosition={setPosition} setSize={setSize}>
-                <WorkExperience/>
-            </Windows98AppWindow>
+            <Windows98AppWindowContext.Provider value={{
+                // @ts-ignore
+                appWindowModel: applicationWindows.get(WORK_EXPERIENCE_APPLICATION_NAME),
+                setIsFocused: setIsFocused,
+                setIsMinimized: setIsMinimized,
+                setIsMaximized: setIsMaximized,
+                closeWindow: closeWindow,
+                setPosition: setPosition,
+                setSize: setSize
+            }}>
+                <Windows98AppWindow>
+                    <WorkExperience/>
+                </Windows98AppWindow>
+            </Windows98AppWindowContext.Provider>
+
         }
 
         {applicationWindows.get(NANO_RACKS_AND_ROBOTICS_APPLICATION_NAME) !== undefined &&
-
-            <Windows98AppWindow
+            <Windows98AppWindowContext.Provider value={{
                 // @ts-ignore
-                appWindowModel={applicationWindows.get(NANO_RACKS_AND_ROBOTICS_APPLICATION_NAME)}
-                setIsFocused={setIsFocused} setIsMinimized={setIsMinimized}
-                setIsMaximized={setIsMaximized} closeWindow={closeWindow}
-                setPosition={setPosition} setSize={setSize}>
-                <NanoRacksAndRobotics/>
-            </Windows98AppWindow>
+                appWindowModel: applicationWindows.get(NANO_RACKS_AND_ROBOTICS_APPLICATION_NAME),
+                setIsFocused: setIsFocused,
+                setIsMinimized: setIsMinimized,
+                setIsMaximized: setIsMaximized,
+                closeWindow: closeWindow,
+                setPosition: setPosition,
+                setSize: setSize
+            }}>
+                <Windows98AppWindow>
+                    <NanoRacksAndRobotics/>
+                </Windows98AppWindow>
+            </Windows98AppWindowContext.Provider>
         }
-        <StartBar startBarElementRef={startBarElementRef} applicationWindows={applicationWindows}
-                  setIsMinimized={setIsMinimized}
-                  setIsFocused={setIsFocused} onShutDownClick={onShutDownClick}
-                  startMenuOpen={startMenuOpen} setStartMenuOpen={(isOpen: boolean) => {
-            playMouseClickSoundEffect();
-            setStartMenuOpen(isOpen)
-        }}
-                  openNanoRacksAndRoboticsPage={openNanoRacksAndRoboticsPage} openIntroPage={openIntroPage}
-                  openAboutMePage={openAboutMePage} openMyProjectsPage={openMyProjectsPage}
-                  startMenuSideSection={startMenuSideSection}
-                  setStartMenuSideSection={setStartMenuSideSection}
-                  openWorkExperiencePage={openWorkExperiencePage}
-                  downloadFullstackEngineerResume={downloadFullstackEngineerResume} isMuted={isMuted}
-                  setIsMuted={setIsMuted}></StartBar>
+        <Windows98StartBarContext.Provider value={{
+            startBarElementRef: startBarElementRef,
+            applicationWindows: applicationWindows,
+            setIsMinimized: setIsMinimized,
+            setIsFocused: setIsFocused,
+            onShutDownClick: onShutDownClick,
+            startMenuOpen: startMenuOpen,
+            setStartMenuOpen: (isOpen: boolean) => {
+                playMouseClickSoundEffect();
+                setStartMenuOpen(isOpen)
+            },
+            openNanoRacksAndRoboticsPage: openNanoRacksAndRoboticsPage,
+            openIntroPage: openIntroPage,
+            openAboutMePage: openAboutMePage,
+            openMyProjectsPage: openMyProjectsPage,
+            startMenuSideSection: startMenuSideSection,
+            setStartMenuSideSection: setStartMenuSideSection,
+            openWorkExperiencePage: openWorkExperiencePage,
+            downloadFullstackEngineerResume: downloadFullstackEngineerResume,
+            isMuted: isMuted,
+            setIsMuted: setIsMuted,
+        }}>
+            <StartBar></StartBar>
+        </Windows98StartBarContext.Provider>
     </div>
 }
