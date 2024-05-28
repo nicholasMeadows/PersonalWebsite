@@ -83,7 +83,7 @@
     border-color: lightgreen;
 }
 
-.startup-video {
+.startup-animation {
     position: absolute;
     top: 0;
     left: 0;
@@ -91,9 +91,10 @@
     height: 100dvh;
     opacity: 0;
     z-index: 20;
+    object-fit: contain;
 }
 
-.startup-video-fade-in {
+.startup-animation-fade-in {
     animation: fade-in 2s;
 }
 

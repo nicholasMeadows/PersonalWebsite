@@ -26,7 +26,7 @@ export default function Windows98Startup({onEnded, powerLightOn, setPowerLightOn
             </div>
             <p>Turn On</p>
         </div>
-        <img className={`startup-video ${powerLightOn ? 'startup-video-fade-in' : ''}`}
+        <img className={`startup-animation ${powerLightOn ? 'startup-animation-fade-in' : ''}`}
              src={'windows_98_boot_screen.gif'}
              style={{opacity: `${powerLightOn ? '1' : ''}`}}/>
         <audio src={'windows_98_startup_sound.mp3'} ref={startupAudioRef} onEnded={onEnded}/>
