@@ -26,7 +26,9 @@ type Props = {
     startMenuSideSection: StartMenuSideSectionState | undefined,
     setStartMenuSideSection: (startMenuSideSection: StartMenuSideSectionState | undefined) => void,
     openWorkExperiencePage: () => void,
-    downloadFullstackEngineerResume: () => void
+    downloadFullstackEngineerResume: () => void,
+    isMuted: boolean,
+    setIsMuted: (isMuted: boolean) => void
 }
 const DOCUMENTS_SIDE_SECTION_KEY = "DOCUMENTS";
 export type StartMenuSideSectionState = {
@@ -46,7 +48,9 @@ export default function StartBar({
                                      startMenuSideSection,
                                      setStartMenuSideSection,
                                      openWorkExperiencePage,
-                                     downloadFullstackEngineerResume
+                                     downloadFullstackEngineerResume,
+                                     isMuted,
+                                     setIsMuted
                                  }: Props) {
     const [time, setTime] = useState<string>();
 
@@ -167,7 +171,8 @@ export default function StartBar({
         </div>
         <div className={'task-bar-box system-tray'}>
             <img src={'windows-icons/sched_tasks.png'} alt={''}/>
-            <img src={'windows-icons/loudspeaker_rays-0.png'} alt={''}/>
+            <img src={`${isMuted ? 'windows-icons/loudspeaker_muted-0.png' : 'windows-icons/loudspeaker_rays-0.png'}`}
+                 alt={''} onClick={() => setIsMuted(!isMuted)}/>
             <p>{time}</p>
         </div>
     </div>

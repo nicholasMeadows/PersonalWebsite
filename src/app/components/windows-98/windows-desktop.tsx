@@ -44,15 +44,18 @@ export default function WindowsDesktop({
                                        }: Props) {
     const mouseClickSoundEffectAudioRef = useRef<HTMLAudioElement>(null)
     const [startMenuSideSection, setStartMenuSideSection] = useState<StartMenuSideSectionState | undefined>();
+    const [isMuted, setIsMuted] = useState(false);
 
     const playMouseClickSoundEffect = useCallback(() => {
-        const mouseCLickSoundEffectAudio = mouseClickSoundEffectAudioRef.current;
-        if (mouseCLickSoundEffectAudio !== null) {
-            mouseCLickSoundEffectAudio.play().catch(() => {
-                console.log('failed to play mouse click sound effect');
-            })
+        if (!isMuted) {
+            const mouseCLickSoundEffectAudio = mouseClickSoundEffectAudioRef.current;
+            if (mouseCLickSoundEffectAudio !== null) {
+                mouseCLickSoundEffectAudio.play().catch(() => {
+                    console.log('failed to play mouse click sound effect');
+                })
+            }
         }
-    }, [])
+    }, [isMuted])
 
     const {
         applicationWindows,
@@ -221,6 +224,7 @@ export default function WindowsDesktop({
                   startMenuSideSection={startMenuSideSection}
                   setStartMenuSideSection={setStartMenuSideSection}
                   openWorkExperiencePage={openWorkExperiencePage}
-                  downloadFullstackEngineerResume={downloadFullstackEngineerResume}></StartBar>
+                  downloadFullstackEngineerResume={downloadFullstackEngineerResume} isMuted={isMuted}
+                  setIsMuted={setIsMuted}></StartBar>
     </div>
 }
