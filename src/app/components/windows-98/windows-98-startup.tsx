@@ -7,17 +7,16 @@ type Props = {
     onEnded: () => void
 }
 export default function Windows98Startup({onEnded, powerLightOn, setPowerLightOn}: Props) {
-    const startupVideoRef = useRef<HTMLVideoElement>(null);
-
+    const startupAudioRef = useRef<HTMLAudioElement>(null)
     return <div className={'startup-background'}>
         <div className={'power-button-and-text-wrapper'}>
             <div className={'power-button-wrapper'}>
                 <div className={'power-button'} style={{zIndex: `${powerLightOn ? 15 : 50}`}} onMouseUp={() => {
-                    const startupVideo = startupVideoRef.current
-                    if (startupVideo !== null) {
+                    const startupAudio = startupAudioRef.current
+                    if (startupAudio !== null) {
                         setPowerLightOn(true);
-                        startupVideo.volume = 0.2;
-                        startupVideo.play();
+                        startupAudio.volume = 0.2;
+                        startupAudio.play();
                     }
                 }}>
                     <div className={`button ${powerLightOn ? 'circle-on' : ''}`}>
@@ -27,10 +26,9 @@ export default function Windows98Startup({onEnded, powerLightOn, setPowerLightOn
             </div>
             <p>Turn On</p>
         </div>
-        <video className={`startup-video ${powerLightOn ? 'startup-video-fade-in' : ''}`}
-               style={{opacity: `${powerLightOn ? '1' : ''}`}} ref={startupVideoRef}
-               onEnded={onEnded}>
-            <source src={'microsoft-windows-98-startup.mp4'}/>
-        </video>
+        <img className={`startup-video ${powerLightOn ? 'startup-video-fade-in' : ''}`}
+             src={'windows_98_boot_screen.gif'}
+             style={{opacity: `${powerLightOn ? '1' : ''}`}}/>
+        <audio src={'windows_98_startup_sound.mp3'} ref={startupAudioRef} onEnded={onEnded}/>
     </div>
 }
