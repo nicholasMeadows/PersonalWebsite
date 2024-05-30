@@ -11,6 +11,7 @@ import '../../css/windows-desktop.css'
 import useWindows98Windows from "@/app/hooks/use-windows-98-windows";
 import Windows98AppWindowContext from "@/app/context/windows-98-app-window-context";
 import Windows98StartBarContext from "@/app/context/windows-98-start-bar-context";
+import MineSweeperWindow from "@/app/components/windows-98/mine-sweeper";
 
 export const INTRO_APPLICATION_NAME = "Nicholas Meadows"
 export const INTRO_APPLICATION_ICON_URL = "nicholas-picture-1.png"
@@ -23,6 +24,8 @@ export const WORK_EXPERIENCE_APPLICATION_ICON_URL = "windows-icons/document-0.pn
 export const NANO_RACKS_AND_ROBOTICS_APPLICATION_NAME = "Nano Racks and Robotics"
 export const NANO_RACKS_AND_ROBOTICS_APPLICATION_ICON_URL = "FRC Team 4353 2016 Robot.png"
 
+export const MINE_SWEEPER_APPLICATION_NAME = "Minesweeper";
+export const MINE_SWEEPER_APPLICATION_ICON_URL = 'windows-icons/minesweeper-0.png'
 export type ApplicationWindowModel = {
     openedWindowTimestamp: number,
     iconUrl: string,
@@ -131,6 +134,13 @@ export default function WindowsDesktop({
         setStartMenuSideSection(undefined);
     }, [openWindow, setIsFocused, setStartMenuOpen]);
 
+    const openMinesweeper = useCallback(() => {
+        setStartMenuOpen(false);
+        openWindow(MINE_SWEEPER_APPLICATION_NAME, MINE_SWEEPER_APPLICATION_ICON_URL)
+        setIsFocused(MINE_SWEEPER_APPLICATION_NAME, true);
+        setStartMenuSideSection(undefined);
+    }, [openWindow, setIsFocused, setStartMenuOpen]);
+
     useEffect(() => {
         openIntroPage();
     }, []);
@@ -162,6 +172,8 @@ export default function WindowsDesktop({
                              onClick={openMyProjectsPage}/>
             <DesktopShortcut iconSrc={'github-logo-dark.png'} iconTxt={'Github'} onClick={openGithub}/>
             <DesktopShortcut iconSrc={'linkedin-logo.png'} iconTxt={'Linkedin'} onClick={openLinkedin}/>
+            <DesktopShortcut iconSrc={MINE_SWEEPER_APPLICATION_ICON_URL} iconTxt={MINE_SWEEPER_APPLICATION_NAME}
+                             onClick={openMinesweeper}/>
         </div>
 
         {applicationWindows.get(INTRO_APPLICATION_NAME) !== undefined &&
@@ -176,7 +188,9 @@ export default function WindowsDesktop({
                 setSize: setSize
             }}>
                 <Windows98AppWindow>
-                    <Home/>
+                    <div className={'personal-website-page-wrapper'}>
+                        <Home/>
+                    </div>
                 </Windows98AppWindow>
             </Windows98AppWindowContext.Provider>
         }
@@ -193,7 +207,8 @@ export default function WindowsDesktop({
                 setSize: setSize
             }}>
                 <Windows98AppWindow>
-                    <AboutMe/>
+                    <div className={'personal-website-page-wrapper'}>
+                        <AboutMe/></div>
                 </Windows98AppWindow>
             </Windows98AppWindowContext.Provider>
         }
@@ -209,7 +224,8 @@ export default function WindowsDesktop({
                 setSize: setSize
             }}>
                 <Windows98AppWindow>
-                    <Projects/>
+                    <div className={'personal-website-page-wrapper'}>
+                        <Projects/></div>
                 </Windows98AppWindow>
             </Windows98AppWindowContext.Provider>
         }
@@ -226,7 +242,8 @@ export default function WindowsDesktop({
                 setSize: setSize
             }}>
                 <Windows98AppWindow>
-                    <WorkExperience/>
+                    <div className={'personal-website-page-wrapper'}>
+                        <WorkExperience/></div>
                 </Windows98AppWindow>
             </Windows98AppWindowContext.Provider>
 
@@ -244,10 +261,31 @@ export default function WindowsDesktop({
                 setSize: setSize
             }}>
                 <Windows98AppWindow>
-                    <NanoRacksAndRobotics/>
+                    <div className={'personal-website-page-wrapper'}>
+                        <NanoRacksAndRobotics/>
+                    </div>
                 </Windows98AppWindow>
             </Windows98AppWindowContext.Provider>
         }
+
+        {applicationWindows.get(MINE_SWEEPER_APPLICATION_NAME) !== undefined &&
+            <Windows98AppWindowContext.Provider value={{
+                // @ts-ignore
+                appWindowModel: applicationWindows.get(MINE_SWEEPER_APPLICATION_NAME),
+                setIsFocused: setIsFocused,
+                setIsMinimized: setIsMinimized,
+                setIsMaximized: setIsMaximized,
+                closeWindow: closeWindow,
+                setPosition: setPosition,
+                setSize: setSize
+            }}>
+                <Windows98AppWindow>
+                    <MineSweeperWindow/>
+                </Windows98AppWindow>
+            </Windows98AppWindowContext.Provider>
+        }
+
+
         <Windows98StartBarContext.Provider value={{
             startBarElementRef: startBarElementRef,
             applicationWindows: applicationWindows,

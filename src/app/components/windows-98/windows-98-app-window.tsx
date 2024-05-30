@@ -171,7 +171,7 @@ export default function Windows98AppWindow({children}: Props) {
                 style={{
                     left: `${appWindowModel.isMaximized ? 0 : appWindowModel.position.left}px`,
                     top: `${appWindowModel.isMaximized ? 0 : appWindowModel.position.top}px`,
-                    bottom: `${appWindowModel.isMaximized ? 'calc(0px + var(--start-bar-height) + var(--start-bar-border-top-width))' : 'unset'}`,
+                    bottom: `${appWindowModel.isMaximized ? 'calc(10px + var(--start-bar-height) + var(--start-bar-border-top-width))' : 'unset'}`,
                     right: `${appWindowModel.isMaximized ? '0px' : 'unset'}`,
                     width: `${appWindowModel.isMaximized ? 'unset' : appWindowModel.size.width + 'px'}`,
                     height: `${appWindowModel.isMaximized ? 'unset' : appWindowModel.size.height + 'px'}`,
