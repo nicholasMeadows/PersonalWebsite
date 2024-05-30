@@ -133,7 +133,15 @@ export default function MineSweeperWindow() {
         updateDifficulty(difficulty)
     }, [gameOptionsDialogState, updateDifficulty])
 
-    return <div className={'mine-sweeper-window'}>
+    const gameOptionsDivRef = useRef<HTMLDivElement>(null)
+    return <div className={'mine-sweeper-window'} onClick={(event) => {
+        const gameOptionDiv = gameOptionsDivRef.current
+        if (gameOptionDiv !== null) {
+            if (!gameOptionDiv.contains(event.target as HTMLDivElement)) {
+                setGameOptionsDialogState({...gameOptionsDialogState, show: false});
+            }
+        }
+    }}>
         <div className={'mine-sweeper-options-box'}>
             <p onClick={(event) => {
                 setGameOptionsDialogState({
@@ -145,7 +153,7 @@ export default function MineSweeperWindow() {
         {gameOptionsDialogState.show &&
             <div className={'game-options-dialog'} style={{
                 top: `${gameOptionsDialogState.top}px`
-            }}>
+            }} ref={gameOptionsDivRef}>
                 <div className={'difficulty-option-box'} onClick={() =>
                     difficultyButtonOnClick(Difficulty.Beginner)
                 }>
